@@ -1,0 +1,147 @@
+<%-include("includes/header")-%>
+<link rel="stylesheet" href="css/userCart--.css">
+<body>
+	<main class="page">
+	 	<section class="shopping-cart dark">
+	 		<div class="container">
+		        <div class="content">
+	 				<div class="row">
+						<div class="block-heading align-items-center d-flex justify-content-center mt-5 mb-5">
+							<h2>Cart</h2>
+						</div>
+	 					<div class="col-md-8">
+							<% if (cartDetails && cartDetails.cartItems && cartDetails.cartItems.length) { %>
+								<% for (let i = 0; i < cartDetails.cartItems.length; i++) { %>
+								    <div class="items">
+									   <div class="product">
+										  <div class="row">
+											 <div class="col-md-3">
+												<img class="img-fluid mx-auto d-block image" src="<%= cartDetails.cartItems[i].productId.image[0] %>">
+											 </div>
+											 <div class="col-md-8">
+												<div class="info">
+												    <div class="row">
+													   <div class="col-md-4 product-name">
+														  <div class="product-name">
+															 <a class="product-Name" href="#"><%= cartDetails.cartItems[i].productId.productName %></a>
+							
+														  </div>
+													   </div>
+													   <!-- <div class="col-md-4 quantity" data-Url="/api/updateProductQuantity?pid=<%#=cartDetails.cartItems[i].productId._id%>">
+														  <label for="quantity">Quantity:</label>
+														  <input id="quantity<%#= i %>" type="number" value="<%#=cartDetails.cartItems[i].quantity%>" class="form-control quantity-input">
+														  <div id="error-message"></div>
+														  <p class="err-msg d-flex justify-content-center" id="errorElement1" style=" color: red;">
+															 <%# if(message){ %>
+																<%#=message %>
+															 <%# } %>
+														  </p>
+													   </div> -->
+													   <div class="col-md-4 quantity d-flex">
+														<button class="btn btn-link px-2 mt-4"
+														    onclick="decrementQuantity('<%= i %>','<%= cartDetails.cartItems[i].productId._id %>')">
+														    <i class="fas fa-minus"></i>
+														</button>
+		    
+														<input id="form<%= i%>" min="1"
+														    max="<%= cartDetails.cartItems[i].productId.inStock %>" name="quantity"
+														    value="<%= cartDetails.cartItems[i].quantity %>" type="number"
+														    class="form-control form-control-sm  mt-4" readonly />
+		    
+														<button class="btn btn-link px-2 mt-4"
+														    onclick="incrementQuantity('<%= i %>','<%= cartDetails.cartItems[i].productId._id %>')">
+														    <i class="fas fa-plus"></i>
+														</button>
+													 </div>
+													   <div class="col-md-3 price">
+														  <h4>&#8377;<%= cartDetails.cartItems[i].productId.lastPrice%></h4>
+														  <h6 style="margin-left:17px;">
+															 <!-- <del>&#8377;<%#= cartDetails.cartItems[i].productId.firstPrice%></del> -->
+														  </h6>
+													   </div>
+												    </div>
+												</div>
+											 </div>
+											 <div class="col-md-1 delete">
+												<form id="removeForm<%= i %>" action="/api/removeCart?pid=<%= cartDetails.cartItems[i].productId._id %>" method="post">
+												    <button type="submit" value="<%= cartDetails.cartItems[i].productId._id %>" class="delete-btn"><i class="bi bi-x-lg"></i></button>
+												</form>
+											 </div>
+										  </div>
+									   </div>
+								    </div>
+								<% } %>
+							
+							 
+			 			</div>
+			 			<div class="col-md-4">
+			 				<div class="summary">
+			 					<h3>Summary</h3>
+			 					<!-- <div class="summary-item"><span class="text">Subtotal</span><span class="price">&#8377;360</span></div> -->
+                                <div class="summary-item"><span class="text">Subtotal</span><span class="price">&#8377; <span
+                                    id="subtotal-display" class="price">
+									<% if(cartDetails && cartDetails.cartItems) {%>
+										<%= cartDetails.cartItems.reduce((total, item)=> {
+											return total + (item.productId.firstPrice *
+											item.quantity);
+											}, 0) %>
+									<% }else{ %>
+										0
+									<% } %>
+                                </span></span></div>
+			 					<div class="summary-item"><span class="text">Discount</span><span class="price">&#8377; <span class="price" id="discounttotal-display">
+								<% if(cartDetails && cartDetails.cartItems) {%>
+									<%= cartDetails.cartItems.reduce((total, item)=> {
+                                    return total + ( (item.quantity*
+                                    item.productId.firstPrice)-(item.quantity*item.productId.lastPrice));
+                                    }, 0) %>
+								<% }else{ %>
+										0
+								<% } %>
+								</span></span></div>
+								<% let totalOfferDiscount = 0; %>
+								<% cartDetails.cartItems.forEach(cartItem => { %>
+								    <% if (cartItem.productId.offer && cartItem.productId.offer.discount > 0) { %>
+									   <% const discountAmount = (cartItem.quantity * cartItem.productId.lastPrice * cartItem.productId.offer.discount) / 100; %>
+									   <% totalOfferDiscount += discountAmount; %>
+
+									   <div class="summary-item"><span class="text">Offer Discount</span><span class="price">&#8377; <span
+										id="offer-discont" class="price">
+										<%= discountAmount %>
+									 	</span></span></div>
+								    <% } %>
+								<% }); %>
+			 					<div class="summary-item"><span class="text">Shipping</span><span class="price">Free</span></div>
+			 					<div class="summary-item"><span class="text">Total</span><span class="price">&#8377; <span id="total-display" class="price"></span>
+								<% let totalOfferDiscount1 = 0; %>
+                                <% cartDetails.cartItems.forEach(cartItem => { %>
+                                    <% if (cartItem.productId.offer && cartItem.productId.offer.discount > 0) { %>
+                                        <% const discountAmount1 = (cartItem.quantity * cartItem.productId.lastPrice * cartItem.productId.offer.discount) / 100; %>
+                                        <% totalOfferDiscount1 += discountAmount1; %>
+                                    <% } %>
+                                <% }); %>
+                                
+                                <%= cartDetails.cartItems.reduce((total, item)=> {
+                                    return total + (item.productId.firstPrice * item.quantity);
+                                }, 0) - cartDetails.cartItems.reduce((total, item)=> {
+                                    return total + ((item.quantity * item.productId.firstPrice) - (item.quantity * item.productId.lastPrice));
+                                }, 0) - totalOfferDiscount1.toFixed(2) %>
+								</span></div>
+			 					<a href="/checkout"><button type="button" class="btn btn-lg btn-block btn-ch">Checkout</button></a>
+				 			</div>
+			 			</div>
+						 <% } else { %>
+							<h3 class="d-flex justify-content-center mt-5 text-primary">Your cart is empty!</h3>
+							<div class="d-flex justify-content-center mt-5">
+							    <a href="/"><button class="btn-shop p-2">Shop Now</button></a>
+							</div>
+						 <% } %>
+		 			</div> 
+		 		</div>
+	 		</div>
+		</section>
+	</main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/js/cart.js"></script>
+</body>
+<%-include("includes/footer")-%>

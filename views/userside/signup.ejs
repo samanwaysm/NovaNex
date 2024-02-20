@@ -1,0 +1,39 @@
+<%-include("includes/header")-%>
+    <!--================login_part Area =================-->
+    <section class="login_part section_padding ">
+        <div class="container ">
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6 col-md-6">
+                    <div class="login_part_form">
+                        <div class="login_part_form_iner">
+                            <h3 class="d-flex justify-content-center">Signup</h3>
+                            <form class="row contact_form" action="/api/otp" method="post" novalidate id="form">
+                                <% if(foundEmail){ %>
+                                <p class="err-msg d-flex justify-content-center" id="errorElement" style=" color: red;">
+                                    <%=foundEmail %>
+                                </p>
+                                <% } %>
+                                <p class="err-msg d-flex justify-content-center" id="errorElement" style=" color: red;">
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="email" class="form-control" id="email" name="email" value=""
+                                        placeholder="Email" required  >
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div class="creat_account d-flex align-items-center">
+                                    </div>
+                                    <button type="submit" value="submit" id="submit" class="btn_3">
+                                        Continue
+                                    </button>
+                                    <a class="lost_pass" href="/login">
+                                        Already have an account? Sign in</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================login_part end =================-->
+    <script src="js/signupvalidation.js"></script>
+    <%-include("includes/footer")-%>

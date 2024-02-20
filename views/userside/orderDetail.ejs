@@ -1,0 +1,147 @@
+<%- include("includes/header") %>
+
+<!-- <section class="container-fluid bg-body d-block" style="height: 150vh;">
+    <div class="row justify-content-center " style="display: flex; align-content: center;">
+        <div class="col-12 col-md-6 col-lg-4" style="min-width: 900px; margin-top: 100px;">
+            <div class="card bg-white mb-1 mt-5 border-0"
+                style="box-shadow: 0 12px 15px rgba(0, 0, 0, 0.3); display: flex; align-items: center;">
+                <div class="card-body p-5 M-4">
+                    
+                    <h1 class="text-center">Order Details</h1>
+                   
+                    <p class="text-center" style="color: rgb(134, 3, 3);">Order Id : <%#= orders.orderItems[0].orderID %></p>
+                   <div>
+
+                    <p><strong> Name : <%#=orders.address[0].fullName %></strong></p>
+                    <p><strong>Delivery Address : <%#= orders.address[0].structuredAddress%></strong></p>
+
+                   </div>
+                  <p><strong>Payment Method : 
+                        <%#if(orders.paymentMethod == 'cod') {%>
+                                Cash On Delivery
+                        <%# }else if(orders.paymentMethod == 'wallet') {%>
+                                Wallet
+                        <%# }else if(orders.paymentMethod == 'online') {%>
+                                Online
+                        <%# } %>
+                         </strong></p>
+                  <p><strong>Order date : <%#=orders.orderDate.split('T')[0] %></strong></p>
+
+                  <div class="product-details mr-2">
+                    <hr>
+                    <h2 class="mb-0 text-dark">Product</h2>
+                    <div class="d-flex justify-content-between">
+                      <span class="text-white"></span>
+                        <div class="d-flex flex-row align-items-center"><span class="text-black-50"></span>
+                            <div class="price ml-2"><span class="mr-1 text-white">price</span>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
+                        <div class="d-flex flex-row"><img class="rounded" src="<%#= orders.orderItems[0].image[0]%>" width="100">
+                            <div class="ml-2">
+                            <span class="font-weight-bold d-block text-dark"><strong>Product Name : </strong><%#= orders.orderItems[0].productName %></span>
+                            <span class="font-weight-bold d-block text-dark"><strong>Price : </strong><%#= orders.totalAmount %></span>
+                            <span class="spec text-dark d-block"><strong>Quantity : </strong><%#=orders.orderItems[0].quantity%></span>
+                            <span class="spec text-dark"><strong>Status : </strong><%#=orders.orderItems[0].orderStatus %></span></div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center"><span class="d-block text-white"></span><span class="d-block ml-5 font-weight-bold text-white"></span><i class="fa fa-trash-o ml-3 text-black-50"></i></div>
+                    </div>
+                   
+                    
+                </div> 
+                    
+                </div>
+    
+           
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- ================================================== -->
+<!-- <div class="container">
+    <div class="row justify-content-center text-center">
+        <h1 class="mb-4">Order Detail</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <img src="<%#= orders.orderItems[0].image[0] %>" class="img-fluid rounded-3 shadow w-75" alt="product image">
+        </div>
+        <div class="col-md-6 text-left mt-4">
+                <h4 class="text-black fw-4 text-center"><%#= orders.orderItems[0].brandName %></h4>
+                <h5 class="text-black mb-4 text-center"><%#= orders.orderItems[0].productName %></h5><br>
+                <h6 class="text-black"> Quantity: <%#= orders.orderItems[0].quantity %></h6>
+                <h6>Price: ₹<%#= orders.totalAmount %></h6><br><hr>
+                <span class="mt-4">Order Id:</span> <br> <strong><%#= orders.orderItems[0].orderID %></strong><br>
+                <span>Order Date:</span><br> <strong><%#= orders.orderDate.split('T')[0] %></strong><br>
+                <span>Payment :</span><strong>
+                <%#if(orders.paymentMethod == 'cod') {%>
+                    Cash On Delivery
+                <%# }else if(orders.paymentMethod == 'wallet') {%>
+                    Wallet
+                <%# }else if(orders.paymentMethod == 'online') {%>
+                    Online
+                <%# } %></strong><br>
+                <span>Status :</span> <strong><%#= orders.orderItems[0].orderStatus %></strong><hr>
+                <h5 class="mt-3">Delivered address</h5>
+            <div class="bg-white card addresses-item border border-primary shadow">
+                <div class="gold-members p-4">
+                    <div class="media">
+                        <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+                        <div class="media-body">
+                            <p class="text-black"><%#= orders.address[0].structuredAddress %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <hr class="border-2">
+</div> -->
+<div class="container">
+    <div class="row justify-content-center text-center">
+        <h1 class="mb-4">Order Detail</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <img src="<%= orderDetail.product.image[0] %>" class="img-fluid rounded-3 shadow w-75" alt="product image">
+        </div>
+        <div class="col-md-6 text-left mt-4">
+                <h4 class="text-black fw-4 text-center"><%= orderDetail.product.brandName %></h4>
+                <h5 class="text-black mb-4 text-center"><%= orderDetail.product.productName %></h5><br>
+                <h6 class="text-black"> Quantity: <%= orderDetail.product.quantity %></h6>
+                <h6>Price: ₹<%= orderDetail.product.price * orderDetail.product.quantity %></h6><br><hr>
+                <span class="mt-4">Order Id:</span> <br> <strong><%= orderDetail.order.orderItems[0].orderID %></strong><br>
+                <span>Order Date:</span><br> <strong><%= orderDetail.order.orderDate.split('T')[0] %></strong><br>
+                <span>Payment :</span><strong>
+                    <%#= orderDetail.order.paymentMethod %>
+                    <%if(orderDetail.order.paymentMethod == 'cod') {%>
+                        Cash On Delivery
+                    <% }else if(orderDetail.order.paymentMethod == 'wallet') {%>
+                        Wallet
+                    <% }else if(orderDetail.order.paymentMethod == 'online') {%>
+                        Online
+                    <% } %>
+                </strong><br>
+                <span>Status :</span> <strong><%= orderDetail.product.orderStatus %></strong><hr>
+                <h5 class="mt-3">Delivered address</h5>
+            <div class="bg-white card addresses-item border border-primary shadow">
+                <div class="gold-members p-4">
+                    <div class="media">
+                        <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+                        <div class="media-body">
+                            <p class="text-black"><%= orderDetail.order.address[0].structuredAddress %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <hr class="border-2">
+</div>
+<%- include("includes/footer") %>

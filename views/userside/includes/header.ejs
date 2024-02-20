@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaNex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="icon" type="image/x-icon" href="img/shopping-cart.png">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <!-- <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"> -->
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css1/style.css" rel="stylesheet">
+
+
+</head>
+<body>
+    <!-- header -->
+  <header class="bg-white text-black">
+    <div class="container-fluid pt-2 pb-2">
+      <div class=" d-flex justify-content-between mobile-header ">
+
+
+
+        <div class="navigation-mobile-list ">
+          <% if(isUserAuthenticated){ %>
+          <ul>
+            <li><a href="/">home</a></li>
+            <li><a href="/userProfile"><i class="bi bi-person-fill text-dark"></i>user</a></li>
+            <li><a href=""><i class="bi bi-heart-fill text-dark"></i>wishlist</a></li>
+            <li><a href="/userCart"><i class="bi bi-bag-fill text-dark"></i>cart</a></li>
+          </ul>
+          <% }else{ %>
+            <ul>
+              <li><a href="">home</a></li>
+              <li><a href=""><i class="bi bi-person text-dark"></i>user</a></li>
+              <!-- <li><a href=""><i class="bi bi-heart text-dark"></i>wishlist</a></li>
+              <li><a href=""><i class="bi bi-bag text-dark"></i>cart</a></li> -->
+            </ul>
+          <% } %>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="hamburger_menu">
+            <button class="toggle-bar " onclick="toggle()" title="Toggle Menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+          <div>
+            <a class="home_route" href="/"><h1>NovaNex</h1></a>
+          </div>
+
+        </div>
+
+        <div class="d-flex align-items-center form-inputs col-12 col-sm-4  position-relative">
+          <!-- <input class="form-control" type="text" placeholder="search..."> -->
+          <form class="d-flex" role="search" action="/productsList" method="get">
+            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+            <input class="form-control border-dark" type="text" name="search" placeholder="Search...">
+            <button class="btn border-dark" style="border-radius: 5px;" type="submit"><i class="bi bi-search text-dark"></i></button>
+          </form>
+        </div>
+
+        <% if(isUserAuthenticated){ %>
+        <div class="d-flex align-content-center  " id="menu-short-cut">
+          <div class="icon-container">
+            <a href="/userProfile" class="text-dark m-2">
+              <i class="bi bi-person-fill text-dark" style="font-size: 17px;"></i>
+              </i>
+            </a>
+          </div>
+          <div class="icon-container">
+            <a href="#" class="text-dark m-2">
+              <i class="bi bi-heart-fill text-dark"></i>
+              </i>
+            </a>
+          </div>
+          <div class="icon-container">
+            <a href="/userCart" class="text-dark m-2">
+              <i class="bi bi-bag-fill text-dark">
+              </i>
+            </a>
+          </div>
+          <!-- <div class="icon-container">
+            <a href="/api/logout" class="text-dark m-2">
+              <i class="bi bi-box-arrow-left text-dark"></i>
+              </i>
+            </a>
+          </div> -->
+        </div>
+      </div>
+      <% }else{ %>
+        <div class="d-flex align-content-center  " id="menu-short-cut">
+          <div class="icon-container">
+            <a href="/login" class="text-dark m-2">
+              <i class="bi bi-person text-dark"></i>
+              <!-- <i class="bi bi-person"></i> -->
+              </i>
+            </a>
+          </div>
+          <!-- <div class="icon-container">
+            <a href="#" class="text-dark m-2">
+              <i class="bi bi-heart text-dark"></i>
+              </i>
+            </a>
+          </div>
+          <div class="icon-container">
+            <a href="#" class="text-dark m-2">
+              <i class="bi bi-bag text-dark">
+              </i>
+            </a>
+          </div> -->
+        </div>
+      </div>
+      <% } %>
+    </div>
+
+    <script src="script.js"></script>
+  </header>
+  <!-- header -->

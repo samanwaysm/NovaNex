@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/x-icon" href="img/user-gear.png">
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    
+       <!-- My CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+       <link rel="stylesheet" href="/css/dashboard.css">
+
+	<title>NovaNex Admin</title>
+</head>
+
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<h2 class="text p-5" style="color: black;">NovaNex</h2>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="/adminDash">
+					<i class='bx bxs-dashboard'></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a href="/adminProductMange">
+					<!-- /admin/addproduct -->
+					<i class='bx bxs-shopping-bag-alt'></i>
+					<span class="text">ProductManagment</span>
+				</a>
+			</li>
+			<li>
+				<!-- <a href="/admin/UserManagment"> -->
+				<a href="/adminUserMange">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text">User managment</span>
+				</a>
+			</li>
+			<li>
+				<a href="/adminOrderMange">
+					<i class='bx bxs-group'></i>
+					<span class="text">Order Managment</span>
+				</a>
+			</li>
+			<li>
+				<a href="/adminCategoryMange">
+					<i class='bx bxs-cog'></i>
+					<span class="text"> Category Managment</span>
+				</a>
+			</li>
+			<li>
+				<a href="/adminCouponManage">
+					<i class='bx bxs-coupon'></i>
+					<span class="text">Coupen Managment</span>
+				</a>
+			</li>
+			<li>
+				<a href="/adminOfferManage">
+					<i class='bx bxs-offer'></i>
+					<span class="text">Offer Managment</span>
+				</a>
+			</li>
+			<li>
+				<a href="/adminRefManage">
+					<i class='bx bxs-share-alt'></i>
+					<span class="text">Referral Managment</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="/admin/logout" class="logout">
+					<i class='bx bxs-log-out-circle'></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<!-- <li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Home</a>
+						</li> -->
+					</ul>
+				</div>
+
+			</div>
+
+			<ul class="box-info ">
+				<li style="background-color:  rgb(255, 255, 255);">
+					<i style="color: rgb(10, 8, 7);" class='bx bxs-calendar-check '></i>
+					<span class="text">
+						<h3>
+							<%= orders.orders.length %>
+						</h3>
+						<p>Order</p>
+					</span>
+				</li>
+				<li style="background-color:rgb(255, 255, 255);">
+					<i style="color: rgb(10, 8, 7);" class='bx bxs-group'></i>
+					<span class="text">
+						<h3>
+							<%= users.length %>
+						</h3>
+						<p>Users</p>
+					</span>
+				</li>
+				<li style="background-color: rgb(255, 255, 255);">
+					<i style="color: rgb(10, 4, 1);" class='bx bx-rupee'></i>
+					<!-- <i class='bx bx-rupee'></i> -->
+					<span class="text">
+						<!-- <h3>$<%#= dashDetails.profit %></h3> -->
+						<h3>&#8377;<%= dashDetails?.profit?dashDetails.profit:0 %>
+						</h3>
+						<p>Total Sales</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order" style="background-color:  rgb(255, 255, 255);">
+					<div class="head">
+						<!-- <h3>Recent Orders</h3> -->
+						<!-- <i class='bx bx-search' ></i>
+						<i class='bx bx-filter' ></i> -->
+						<!-- <a href="/admin/salesReport" class="btn-download">
+							<i class='bx bxs-cloud-download'></i>
+							<span class="text">Download PDF</span>
+						</a> -->
+						<div class="row align-center w-25">
+							<button type="button" class="btn btn-primary mt-3 mx-5 py-2"
+								data-bs-toggle="modal" data-bs-target="#exampleModal"
+								data-bs-whatever="@fat"><i class='bx bxs-cloud-download me-2'></i>Download Sales Report</button>
+						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModal" >
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5"
+											id="exampleModalLabel">Sales
+											Report</h1>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form class="row"
+											id="downloadSalesForm">
+											<div class="mb-3 col">
+												<label for="fromDate"
+													class="col-form-label">From:</label>
+												<input type="date"
+													class="form-control"
+													id="fromDate"
+													name="fromDate">
+											</div>
+											<div class="mb-3 col">
+												<label for="toDate"
+													class="col-form-label">To:</label>
+												<input type="date"
+													class="form-control"
+													id="toDate"
+													name="toDate">
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button"
+											class="btn btn-danger"
+											data-bs-dismiss="modal">Close</button>
+										<button type="button"
+											class="btn btn-success"
+											onclick="downloadSalesReport()">Download</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--MOdale end  -->
+					</div>
+					<div class="row align-center">
+						<select class="border border-3 border-secondary w-25 rounded-3 mt-5 mx-5 py-2"
+							id="filterSales">
+							<option value="Daily">Daily</option>
+							<option value="Weekly">Weekly</option>
+							<option value="Monthly">Monthly</option>
+							<option value="Yearly">Yearly</option>
+						</select>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="mt-5">
+								<canvas id="myChart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class="row">
+						<select class="w-25 rounded-2 mt-5 mx-5 py-2" name="sort" id="sort">
+						  <option value="weekly">Weekly</option>
+						  <option value="monthly">Monthly</option>
+						  <option value="yearly">Yearly</option>
+						</select>
+					  </div>
+				
+					  <div class="row">
+						<div class="col-md-12">
+						  <div class="mt-5">
+							<canvas id="myChart"></canvas>
+						  </div>
+						</div>
+					  </div>
+					</div> -->
+				<!-- <table>
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Date Order</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>John Doe</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status completed">Completed</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>John Doe</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status pending">Pending</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>John Doe</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status process">Process</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>John Doe</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status pending">Pending</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/people.png">
+									<p>John Doe</p>
+								</td>
+								<td>01-10-2021</td>
+								<td><span class="status completed">Completed</span></td>
+							</tr>
+						</tbody>
+					</table> -->
+			</div>
+			<!-- <div class="todo">
+					<div class="head">
+						<h3>Todos</h3>
+						<i class='bx bx-plus' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<ul class="todo-list">
+						<li class="completed">
+							<p>Todo List</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="completed">
+							<p>Todo List</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="not-completed">
+							<p>Todo List</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="completed">
+							<p>Todo List</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+						<li class="not-completed">
+							<p>Todo List</p>
+							<i class='bx bx-dots-vertical-rounded' ></i>
+						</li>
+					</ul>
+				</div> -->
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+
+
+	<script src="script.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/json2csv@5.0.5/dist/json2csv.umd.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	<script>
+	function downloadSalesReport() {
+      		// Extract selected dates
+		var fromDate = document.getElementById('fromDate').value;
+      		var toDate = document.getElementById('toDate').value;
+
+		$.ajax({
+			type: 'GET',
+			url: `/admin/salesReport?fromDate=${fromDate}&toDate=${toDate}`,
+			// data: { fromDate: fromDate, toDate: toDate },
+			success: function (data) {
+			// Handle success, if needed
+			const blob = new Blob([data], { type: 'text/csv' });
+
+			// Create a link element to trigger the download
+			const link = document.createElement('a');
+			link.href = window.URL.createObjectURL(blob);
+			link.download = 'sales_report.csv';
+
+			// Append the link to the body and trigger the click event
+			document.body.appendChild(link);
+			link.click();
+
+			// Remove the link element
+			document.body.removeChild(link);
+			console.log('Sales report downloaded successfully', data);
+			},
+			error: function (error) {
+			console.error('Error downloading sales report:', error.responseText);
+			}
+		});
+    	}
+
+
+		const ctx = document.getElementById("myChart");
+		let newChart;
+		let flag = false;
+
+		function chartShow(saleData) {
+			if (flag) {
+				newChart.destroy();
+				flag = false;
+			}
+			newChart = new Chart(ctx, {
+				type: "bar",
+				data: {
+					labels: saleData.label,
+					datasets: [
+						{
+							label: "Total Sales",
+							data: saleData.salesCount,
+							borderWidth: 1,
+							backgroundColor: 'rgba(0, 255, 0, 0.2)', // Yellow with 50% transparency
+							borderColor: 'rgba(0, 255, 0, 3)', // Set border color
+
+						},
+					],
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true,
+						},
+					},
+				},
+			});
+		}
+
+		function chartDetails(filter) {
+			$.ajax({
+				url: "/admin/chartData",
+				method: "POST",
+				data: { filter },
+			})
+				.then((res) => {
+					chartShow(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
+
+		const formSelect = document.getElementById("filterSales");
+
+		window.addEventListener("load", () => {
+			chartDetails(formSelect.value);
+		});
+
+		var x, i, j, l, ll, selElmnt, a, b, c;
+		x = document.getElementsByClassName("custom-select");
+		l = x.length;
+		for (i = 0; i < l; i++) {
+			selElmnt = x[i].getElementsByTagName("select")[0];
+			ll = selElmnt.length;
+			a = document.createElement("DIV");
+			a.setAttribute("class", "select-selected");
+			a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+			x[i].appendChild(a);
+			b = document.createElement("DIV");
+			b.setAttribute("class", "select-items select-hide");
+			for (j = 0; j < ll; j++) {
+				c = document.createElement("DIV");
+				c.innerHTML = selElmnt.options[j].innerHTML;
+				c.addEventListener("click", function (e) {
+					var y, i, k, s, h, sl, yl;
+					s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+					sl = s.length;
+					h = this.parentNode.previousSibling;
+					for (i = 0; i < sl; i++) {
+						if (s.options[i].innerHTML == this.innerHTML) {
+							s.selectedIndex = i;
+							h.innerHTML = this.innerHTML;
+							y = this.parentNode.getElementsByClassName("same-as-selected");
+							yl = y.length;
+							invokeChangeEvent();
+							for (k = 0; k < yl; k++) {
+								y[k].removeAttribute("class");
+							}
+							this.setAttribute("class", "same-as-selected");
+							break;
+						}
+					}
+					h.click();
+				});
+				b.appendChild(c);
+			}
+			x[i].appendChild(b);
+			a.addEventListener("click", function (e) {
+				e.stopPropagation();
+				closeAllSelect(this);
+				this.nextSibling.classList.toggle("select-hide");
+				this.classList.toggle("select-arrow-active");
+			});
+		}
+
+		function closeAllSelect(elmnt) {
+			var x,
+				y,
+				i,
+				xl,
+				yl,
+				arrNo = [];
+			x = document.getElementsByClassName("select-items");
+			y = document.getElementsByClassName("select-selected");
+			xl = x.length;
+			yl = y.length;
+			for (i = 0; i < yl; i++) {
+				if (elmnt == y[i]) {
+					arrNo.push(i);
+				} else {
+					y[i].classList.remove("select-arrow-active");
+				}
+			}
+			for (i = 0; i < xl; i++) {
+				if (arrNo.indexOf(i)) {
+					x[i].classList.add("select-hide");
+				}
+			}
+		}
+
+		document.addEventListener("click", closeAllSelect);
+
+		formSelect.addEventListener("change", () => {
+			flag = true;
+			chartDetails(formSelect.value);
+		});
+
+		function invokeChangeEvent() {
+			const event = new Event("change");
+			formSelect.dispatchEvent(event);
+		}
+
+		const allSideMenu = document.querySelectorAll("#sidebar .side-menu.top li a");
+
+		allSideMenu.forEach((item) => {
+			const li = item.parentElement;
+
+			item.addEventListener("click", function () {
+				allSideMenu.forEach((i) => {
+					i.parentElement.classList.remove("active");
+				});
+				li.classList.add("active");
+			});
+		});
+
+		// let myChart;
+		// let sortElement = document.getElementById('sort');
+		// let sort = sortElement.value
+		// console.log('sort',sort);
+		// console.log('ele',sortElement);
+		// chartData(sort)
+		// sortElement.addEventListener('change', function (event) {
+		//   let sort = this.value;
+		//   console.log(sort);
+		//   myChart.destroy()
+		//   chartData(sort)
+		// });
+
+		// function chartData(sort) {
+		// // Make an AJAX request to the server API with the specified sorting parameter
+		// $.ajax({
+		// 	url: `/admin/chartData?sort=${sort}`, // Endpoint URL with the sort parameter
+		// 	type: 'get',
+		// 	success: function (data, textResponse, xhr) {
+		// 	// If the request is successful (status code 200)
+		// 	if (xhr.status === 200) {
+		// 		// Parse the JSON response to extract the orderData
+		// 		const { orderData } = JSON.parse(xhr.responseText);
+		// 		console.log(orderData);
+		// 		// Call the showChart function to display the chart with the fetched data
+		// 		showChart(orderData);
+		// 	}
+		// 	},
+		// 	error: function (xhr, textStatus, errorThrown) {
+		// 	// If there's an error, check if it's a 404 (Not Found) error
+		// 	if (xhr.status === 404) {
+		// 		// Redirect to '/adminHome' if the endpoint is not found
+		// 		window.location.href = '/adminDash';
+		// 	}
+		// 	}
+		// });
+		// }
+
+		// function showChart(orderData) {
+		//   const chardiv = document.getElementById('myChart')
+		//   const labels = Object.keys(orderData)
+		//   const data = {
+		//     labels: labels,
+		//     datasets: [{
+		//       label: 'Order',
+		//       data: Object.values(orderData),
+		//       backgroundColor: [
+		//         'rgba(255, 99, 132, 0.2)',
+		//         'rgba(255, 159, 64, 0.2)',
+		//         'rgba(255, 205, 86, 0.2)',
+		//         'rgba(75, 192, 192, 0.2)',
+		//         'rgba(54, 162, 235, 0.2)',
+		//         'rgba(153, 102, 255, 0.2)'
+		//       ],
+		//       borderColor: [
+		//         'rgb(255, 99, 132)',
+		//         'rgb(255, 159, 64)',
+		//         'rgb(255, 205, 86)',
+		//         'rgb(75, 192, 192)',
+		//         'rgb(54, 162, 235)',
+		//         'rgb(153, 102, 255)'
+		//       ],
+		//       borderWidth: 1
+		//     }]
+		//   };
+
+		//   const config = {
+		//     type: 'bar',
+		//     data: data,
+		//     options: {
+		//       scales: {
+		//         y: {
+		//           beginAtZero: true
+		//         }
+		//       }
+		//     },
+		//   };
+
+		//   myChart = new Chart(chardiv, config);
+		// }
+
+
+	</script>
+</body>
+
+</html>

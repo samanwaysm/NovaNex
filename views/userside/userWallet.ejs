@@ -1,0 +1,59 @@
+<%-include("includes/header")-%>
+
+    <div class="block-heading align-items-center d-flex justify-content-center mt-5 mb-5">
+        <h2>Wallet</h2>
+    </div>
+    <div class="container pt-5 pb-5">
+        <div class="row text-center mb-3 mx-auto w-50 align-items-center p-2" style="border-radius: 10px;border: solid 2px black;">
+            <% if(wallet){ %>
+                <h2 class="col-md-5">Balance</h2><h2 class="col-md-1">:</h2><h1 class="col-md-6">&#8377;<%= wallet.walletAmount %></h1>
+            <% }else{  %>
+                <h2 class="col-md-5">Balance</h2><h2 class="col-md-1">:</h2><h1 class="col-md-6">&#8377;0</h1>
+            <% } %>    
+        </div>
+
+        <form id="walletAddForm" name="walletAddForm">
+            <div class="row text-center mx-auto w-25">            
+                <input type="text" name="amount" class="col-md-5" placeholder="00.00" style="border-radius: 7px;border: solid 1px black;">
+                <span class="col-md-1"></span>
+                <button class="col-md-5 p-2" id="addMoney" style="border: solid 1px blueviolet;background-color: blueviolet; color: #fff; border-radius: 7px;">Add Money</button>
+            </div>
+        </form>
+    </div>
+
+    <h1 class="text-center text-warning">Transaction History</h1>
+    <div class="m-5" >
+        <table class="table text-white border " >
+            <thead class="thead-dark  text-white">
+                <tr>
+                    <th scope="col">Number</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody class="bg-black text-white border ">
+            <% if(wallet){%>
+                <% for(let i=0;i<wallet.transactionHistory.length;i++) { %>      
+                    <tr>
+                        <th class="text-danger" ><%= i+1 %></th>
+                        <td ><%=wallet.transactionHistory[i].amount  %></td>
+                        <% if(wallet.transactionHistory[i].paymentType === 'Credit'){ %>
+                            <td class="text-success" ><%=wallet.transactionHistory[i].paymentType  %></td>
+                        <% }else{ %>
+                            <td class="text-danger" ><%=wallet.transactionHistory[i].paymentType  %></td>
+                        <% } %>
+                        <td ><%=wallet.transactionHistory[i].date.split('T')[0]  %></td>
+                    </tr>
+                <% } %>              
+            </tbody>
+        </table>
+        <% }else{ %>
+            <h1>No Transaction History</h1>
+        <% } %>
+   
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="js/js/wallet.js"></script>
+    <%-include("includes/footer")-%>

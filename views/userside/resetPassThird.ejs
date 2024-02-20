@@ -1,0 +1,38 @@
+<%-include("includes/header")-%>
+    <!--================login_part Area =================-->
+    <section class="login_part section_padding ">
+        <div class="container ">
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6 col-md-6">
+                    <div class="login_part_form">
+                        <div class="login_part_form_iner">
+                            <h3 class="d-flex justify-content-center">Reset Password</h3>
+                            <form class="row contact_form" action="/api/updateforgototp" method="post" novalidate="novalidate" id="form">
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="password" class="form-control" id="password" name="password" value=""
+                                        placeholder="New Password">
+                                </div>
+                                <p class="err-msg d-flex justify-content-center" id="errorElement1" style=" color: red;"></p>
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" value=""
+                                        placeholder="Confirm Password">
+                                </div>
+                                <p class="err-msg d-flex justify-content-center" id="errorElement2" style=" color: red;"></p>
+                                <div class="col-md-12 form-group">
+                                    <div class="creat_account d-flex align-items-center">
+                                    </div>
+                                    <button type="submit" value="submit" class="btn_3" id="submit">
+                                        Reset
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="js/confirmpass.js"></script>
+    <!--================login_part end =================-->
+
+    <%-include("includes/footer")-%>

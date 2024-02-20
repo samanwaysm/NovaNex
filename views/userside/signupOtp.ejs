@@ -1,0 +1,66 @@
+<%-include("includes/header")-%>
+    <!--================login_part Area =================-->
+    <section class="login_part section_padding ">
+        <div class="container ">
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6 col-md-6">
+                    <div class="login_part_form">
+                        <div class="login_part_form_iner">
+                            <h3 class="d-flex justify-content-center">Verify OTP</h3>
+                            <form class="row contact_form" action="/api/otpverification" method="post" novalidate="novalidate">
+                                <% if(otpFailed){ %>
+                                    <p class="err-msg d-flex justify-content-center" id="errorElement" style=" color: red;">
+                                        <%=otpFailed %>
+                                    </p>
+                                <% } %>
+                                <% if(otpRequired){ %>
+                                    <p class="err-msg d-flex justify-content-center" id="errorElement" style=" color: red;">
+                                        <%=otpRequired %>
+                                    </p>
+                                <% } %>
+                                <p class="err-msg d-flex justify-content-center" id="errorElement" style=" color: red;"></p>
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control form-control-otp" id="otp" name="otp" value=""
+                                        placeholder="Enter OTP">
+                                        
+                                </div>
+                                <label class="timeStamp d-block"><span class="seconds">
+                                    <%= rTime?rTime:'60' %>
+                                </span> seconds remaining</label><br>
+                                <a class="text-decoration-none" href="/api/SignupOtpResend"><button class="btn btn-outline-dark resendbtn" type="button" hidden>Resend OTP</button></a>
+                                <input type="text" value="" hidden class="remainingTime" name="rTime">
+                                <div class="col-md-12 form-group">
+                                    <div class="creat_account d-flex align-items-center">
+                                    </div>
+                                    <button type="submit" value="submit" class="btn_3">
+                                        Verify
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================login_part end =================-->
+    <script>
+        const time = document.querySelector(".seconds");
+        const resendButton = document.querySelector(".resendbtn");
+    
+        const cancelIntervel = setInterval(() => {
+          if (Number(time.innerHTML) > 0) {
+            document.querySelector(".remainingTime").value = `${Number(time.innerHTML) - 1
+              }`;
+            time.innerHTML = `${Number(time.innerHTML) - 1}`;
+          } else {
+            clearInterval(cancelIntervel);
+            showButton();
+          }
+        }, 1000);
+        function showButton() {
+        resendButton.removeAttribute("hidden");
+      }
+      </script>
+    <script src="/assets/js/otpValidation.js"></script>
+    <%-include("includes/footer")-%>

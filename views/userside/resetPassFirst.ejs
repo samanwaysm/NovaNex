@@ -1,0 +1,37 @@
+<%-include("includes/header")-%>
+    <!--================login_part Area =================-->
+    <section class="login_part section_padding ">
+        <div class="container ">
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6 col-md-6">
+                    <div class="login_part_form">
+                        <div class="login_part_form_iner">
+                            <h3 class="d-flex justify-content-center">Reset Password</h3>
+                            <form class="row contact_form" action="/api/forgototp" method="post" novalidate="novalidate">
+
+                                <% if(message){ %>
+                                    <p class="err-msg d-flex justify-content-center" id="errorElement" style=" color: red;">
+                                        <%=message%>
+                                    </p>
+                                <% } %>
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="email" name="email" value=""
+                                        placeholder="Email">
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div class="creat_account d-flex align-items-center">
+                                    </div>
+                                    <button type="submit" value="submit" class="btn_3">
+                                        Send OTP
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================login_part end =================-->
+
+    <%-include("includes/footer")-%>

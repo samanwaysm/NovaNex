@@ -1,0 +1,301 @@
+
+<%-include("includes/header")-%>
+<link rel="stylesheet" href="css/userCart--.css">
+<div class="container">
+    <div class="p-5">
+        <div class="block-heading align-items-center d-flex justify-content-center mt-5 mb-5">
+            <h2>Checkout</h2>
+          </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="mb-0 text-black">Selected Items</h3>
+        </div>
+        <!-- <hr class="my-4"> -->
+        <% for(i=0;i<cartDetails.cartItems.length;i++) { %>
+            <div class="row mb-4 d-flex justify-content-between align-items-center" style="border: solid 1px #a5a5a5;">
+                <div class="col-md-2 col-lg-2 col-xl-2">
+                    <img src="<%= cartDetails.cartItems[i].productId.image[0] %>"
+                        class="img-fluid rounded-3" alt="">
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-3">
+                    <h6 class="text-black mb-0">
+                        <%= cartDetails.cartItems[i].productId.productName %>
+                    </h6>
+                </div>
+                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                    <p class="text-black mb-0">Quantity: <%= cartDetails.cartItems[i].quantity %>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                    <h6 class="mb-0">₹<%= cartDetails.cartItems[i].productId.lastPrice*cartDetails.cartItems[i].quantity%>
+                    </h6>
+                </div>
+            </div>
+            <% } %>
+            <hr>
+                <hr class="my-4">
+    </div>
+</div>
+<div class="container">
+    <div class="row ">        
+        <div class="col-md-4 order-md-2 mb-4">
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed" style="border-top: solid 4px #8307e4;">
+                    <div>
+                        <h6 class="my-0">Subtotal</h6>
+                    </div>
+                    <span class="price">&#8377; <span
+                        id="subtotal-display" class="price">
+                        <%= cartDetails.cartItems.reduce((total, item)=> {
+                            return total + (item.productId.firstPrice *
+                            item.quantity);
+                            }, 0) %>
+                    </span></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Discount</h6>
+                    </div>
+                    <span class="price">&#8377; <span class="price" id="discounttotal-display"><%= cartDetails.cartItems.reduce((total, item)=> {
+                        return total + ( (item.quantity*
+                        item.productId.firstPrice)-(item.quantity*item.productId.lastPrice));
+                        }, 0) %></span></span>
+                </li>
+                <% let totalOfferDiscount = 0; %>
+<% cartDetails.cartItems.forEach(cartItem => { %>
+    <% if (cartItem.productId.offer && cartItem.productId.offer.discount > 0) { %>
+        <% const discountAmount = (cartItem.quantity * cartItem.productId.lastPrice * cartItem.productId.offer.discount) / 100; %>
+        <% totalOfferDiscount += discountAmount; %>
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+                <h6 class="my-0">Offer Discount</h6>
+            </div>
+            <span class="price">&#8377; <span class="price" id="discounttotal-display"><%= discountAmount.toFixed(2) %></span></span>
+        </li>
+    <% } %>
+<% }); %>
+
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Shipping</h6>
+                    </div>
+                    <span class="text-success">Free</span>
+                </li>
+                <!-- <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div class="text-success">
+                        <h6 class="my-0">Promo code</h6>
+                        <small>EXAMPLECODE</small>
+                    </div>
+                    <span class="text-success">-₹ </span>
+                </li> -->
+                <!-- <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (INR)</span>
+                    <strong><span class="price">&#8377; <span id="total-display" class="price">
+                    </span></span></strong>
+                </li> -->
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (INR)</span>
+                    <strong>
+                        <span class="price">&#8377; 
+                            <span class="price" id="total-display">
+                                <% let totalOfferDiscount1 = 0; %>
+                                <% cartDetails.cartItems.forEach(cartItem => { %>
+                                    <% if (cartItem.productId.offer && cartItem.productId.offer.discount > 0) { %>
+                                        <% const discountAmount1 = (cartItem.quantity * cartItem.productId.lastPrice * cartItem.productId.offer.discount) / 100; %>
+                                        <% totalOfferDiscount1 += discountAmount1; %>
+                                    <% } %>
+                                <% }); %>
+                                
+                                <%= cartDetails.cartItems.reduce((total, item)=> {
+                                    return total + (item.productId.firstPrice * item.quantity);
+                                }, 0) - cartDetails.cartItems.reduce((total, item)=> {
+                                    return total + ((item.quantity * item.productId.firstPrice) - (item.quantity * item.productId.lastPrice));
+                                }, 0) - totalOfferDiscount1.toFixed(2) %>
+                            </span>
+                        </span>
+                    </strong>
+                </li>
+                
+            </ul>
+
+            <!-- <form class="card p-2" action="/api/userApplyCoupon" method="post">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="couponCode" placeholder="Promo code">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-ch">Redeem</button>
+                    </div>                    
+                </div>
+                <% if(invalid){ %>
+                <p class="error m-0 text-danger">
+                    <%=invalid%>
+                </p>
+                <% } %>
+                <% if(expiry){ %>
+                <p class="error m-0 text-danger">
+                    <%=expiry%>
+                </p>
+                <% } %>
+                <% if(maxUse){ %>
+                <p class="error m-0 text-danger">
+                    <%=maxUse%>
+                </p>
+                <% } %>
+            </form> -->
+            
+            <form class="card p-2" id="coupon-form">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="couponCode" id="couponCode" placeholder="Coupon code">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-ch" id="redeem-btn">Apply</button>
+                    </div>
+                </div>
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-ch m-1" id="remove-btn" hidden>Remove</button>
+                    <!-- <p class="ms-2 text-success " id="couponApply" hidden>Coupon Applied</p> -->
+                </div>
+                <div id="error-message"></div>
+            </form>
+            <div class="card p-2 mt-5">
+                <div class="row text-center mx-auto align-items-center d-flex justify-content-between">
+                    <p>Your Wallet Balance</p>
+                    <% if(wallet){ %>
+                        <h5>&#8377;<%= wallet.walletAmount %></h5>
+                    <% }else{  %>
+                        <h5>&#8377;0</h5>
+                    <% } %> 
+                    <a href="/userWallet"><button class="p-2" style="border: solid 1px #8307e4;background-color: #8307e4;color: #fff; border-radius: 5px;"><i class="bi bi-wallet2"></i> go to Wallet</button></a>
+                    <!-- <div class="input-group-append">
+                        <button type="submit" class="btn btn-ch">Redeem</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">Address</h4>
+            <div class="row">
+                <% if (addresses && addresses.address && addresses.address.length) { %>
+                    <% for(let i=0;i<addresses.address.length;i++){ %>
+                    <div class="col-md-11">
+                        <div class="bg-white card addresses-item mb-4 " style="<%= addresses.address[i]._id.toString() === addresses.defaultAddress.toString() ? 'border-color: rgb(79, 180, 247); border-width: 2px;' : 'border-color:  rgb(168, 168, 168);' %>">
+                        <!-- <div class="bg-white card addresses-item mb-4" style="border-color: rgb(168, 168, 168);"> -->
+                            <div class="gold-members p-4">
+                                <div class="media">
+                                    <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+                                    <div class="media-body">
+                                        <h6 class="mb-1" style="color: black; font-weight: bold;"><%= addresses.address[i].fullName %></h6>
+                                        <p class="text-black"><%= addresses.address[i].structuredAddress %></p>
+                                        <p class="mb-0 text-black font-weight-bold">
+                                            <a class="tmr-3 me-2" style="color: blue;" data-toggle="modal" data-target="#add-address-modal" href="/editAddress?id=<%= addresses.address[i]._id %>&userId=<%= addresses._id %>&returnTo=checkout"><i class="icofont-ui-edit"></i> EDIT</a> 
+                                            <!-- <a class="text-danger" data-toggle="modal" data-target="#delete-address-modal" href="/api/deleteAddress?addressId=<%#= addresses.address[i]._id %>&returnTo=checkout"><i class="icofont-ui-delete"></i> DELETE</a> -->
+                                        </p>
+                                        <!-- <button class="btn" style="background-color: blue;" onclick="setAsDefault('<%= addresses.address[i]._id %>')">Set as Default</button> -->
+                                        <button class="btn def-btn"onclick="setAsDefault('<%= addresses.address[i]._id %>')">Select Address</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                    <% } %>
+                <% } else { %>
+                    <p>No addresses available.</p>
+                <% } %>                             
+            </div>         
+            <!-- <div class="col-md-10">
+                <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+                    <div class="gold-members p-4">
+                        <div class="media">
+                            <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+                            <div class="media-body">
+                                <h6 class="mb-1 text-secondary">Home</h6>
+                                <p class="text-black">Osahan House, Jawaddi Kalan, Ludhiana, Punjab 141002, India
+                                </p>
+                                <p class="mb-0 text-black font-weight-bold">
+                                    <a class="text-primary mr-3" data-toggle="modal"
+                                        data-target="#add-address-modal"
+                                        href="/userEditAddress?addressId=<%#= userInfo.address[i]._id %>">
+                                        <i class="fa-solid fa-pencil text-primary px-2"></i>
+                                    </a>
+                                    <a class="text-danger" data-toggle="modal" data-target="#delete-address-modal"
+                                        href="/deleteAddress?addressId=<%#= userInfo.address[i]._id %>">
+                                        <i class="fa-solid fa-trash-can text-danger px-2"></i> </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <a class="nav-link" id="addresses-tab" data-toggle="tab" href="/addAddress?returnTo=checkout" role="tab"
+                aria-controls="addresses" aria-selected="false"><i
+                    class="fa-solid fa-plus text-bg-success rounded-5 px-2 py-2"></i> Add Addresses</a><br>
+            <!-- <form class="needs-validation" novalidate> -->
+                <div class="row">
+                    <hr class="mb-4">
+
+                    <h4 class="mb-3">Payment</h4>
+
+                    <div class="d-block my-3">
+                        <!-- <form id="checkoutForm" action="/api/userCheckout" method="POST"> -->
+                        <form id="checkoutForm">
+                            <label>
+                                <input type="radio" name="paymentMethod" value="online" onchange="proceedToBuy()">
+                                Online Payment
+                            </label><br>
+
+                            <label>
+                                <input type="radio" name="paymentMethod" value="cod" onchange="proceedToBuy()">
+                                Cash on Delivery
+                            </label><br>
+                            <label>
+                                <input type="radio" name="paymentMethod" value="wallet" onchange="proceedToBuy()">
+                                Wallet
+                                    <p id="error" style="color: red; display: none;"></p>
+                            </label>
+                            <input type="hidden" name="couponCode" id="Setcoupon">
+                            <input type="hidden" name="defaultAddress" value="<%= addresses.defaultAddress %>">
+                            <button type="submit" class="btn btn-lg btn-ch col-md-12"  id="proceedToBuyBtn"  style="display: none;">Place Your Order</button>
+                        </form>
+                    </div>
+        </div>
+    </div>
+</div>
+</div><br><br>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/js/checkout.js"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
+
+
+
+
+<!-- <script>
+    $(document).ready(function() {
+        $('#redeem-btn').click(function() {
+            console.log("button clicked");
+            var couponCode = $('#couponCode').val();
+            $.ajax({
+                type: 'POST',
+                url: '/api/userApplyCoupon',
+                data: { couponCode: couponCode },
+                success: function(response) {
+                    if (response.invalid) {
+                        $('#error-message').html('<p class="error m-0 text-danger">' + response.invalid + '</p>');
+                    } else if (response.expiry) {
+                        $('#error-message').html('<p class="error m-0 text-danger">' + response.expiry + '</p>');
+                    } else if (response.maxUse) {
+                        $('#error-message').html('<p class="error m-0 text-danger">' + response.maxUse + '</p>');
+                    } else {
+                        // Handle success response
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script> -->
+<%-include("includes/footer")-%>

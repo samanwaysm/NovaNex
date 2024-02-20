@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/user-gear.png">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>NovaNex Admin</title>
+</head>
+
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <h2 class="text p-5" style="color: black;">NovaNex</h2>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="/adminDash">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminProductMange">
+                    <!-- /admin/addproduct -->
+                    <i class='bx bxs-shopping-bag-alt'></i>
+                    <span class="text">ProductManagment</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminUserMange">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text">User managment</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/adminOrderMange">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Order Managment</span>
+                </a>
+            </li>
+            <li>
+                <a href="/adminCategoryMange">
+                    <i class='bx bxs-cog'></i>
+                    <span class="text">Category Managment</span>
+                </a>
+            </li>
+            <li>
+				<a href="/adminCouponManage">
+					<i class='bx bxs-coupon'></i>
+					<span class="text">Coupen Managment</span>
+				</a>
+			</li>
+			<li>
+				<a href="/adminOfferManage">
+					<i class='bx bxs-offer'></i>
+					<span class="text">Offer Managment</span>
+				</a>
+			</li>
+			<li>
+				<a href="/adminRefManage">
+					<i class='bx bxs-share-alt'></i>
+					<span class="text">Referral Managment</span>
+				</a>
+			</li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="/admin/logout" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Product Managment</h1>
+                    <ul class="breadcrumb">
+                        <a href="/adminDash">
+                            <li>Dashboard</li>
+                        </a>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active">Product Management</a>
+                            <!-- <h5><%#= orders.orders[0].userDetails[0].email %></h5> -->
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <% for(let i=0;i<orders.orders.length;i++) { %>
+                <%# for(let i=orders.orders.length-1 ;i>=0; i--) { %>
+                    <div class="container-body bg-white d-flex justify-content-between m-2 text-dark"
+                        style="border-radius: 20px;">
+
+                        <div class="product d-flex mt-3">
+                            <img src="<%= orders.orders[i].orderItems.image[0]%>" alt="jsggs" style="width:150px">
+
+                            <div class="product-body ">
+
+                                <h5>Status : <%= orders.orders[i].orderItems.orderStatus%>
+                                </h5>
+                                <p></p>
+                                <p>Email : <span class="text-primary">
+                                        <%= orders.orders[i].userDetails[0].email %>
+                                    </span><br>Name : <span class="text-primary">
+                                        <%= orders.orders[i].userDetails[0].name %>
+                                    </span></p>
+
+
+                            </div>
+
+
+                        </div>
+                        <div class="product d-flex mt-4">
+
+                            <div class="product-body   ">
+                                <p>orderId : <%= orders.orders[i].orderItems.orderID %>
+                                </p>
+                                <p>payment Method : <%= orders.orders[i]. paymentMethod %>
+                                </p>
+                                <p>product name : <%= orders.orders[i]. orderItems. productName%>
+                                </p>
+                                <p>quantity : <%= orders.orders[i]. orderItems. quantity%>
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="product d-flex mt-4">
+                            <% if(orders.orders[i].orderItems.orderStatus=='Delivered' ){%>
+                                <div class="product-body  m-2">
+                                    <h5 class="text-success me-4">Delivered</h5>
+                                </div>
+                                <% }else if(orders.orders[i].orderItems.orderStatus=='Canceled' ){ %>
+                                    <div class="product-body  m-2">
+                                        <h5 class="text-danger me-4">Canceled</h5>
+                                    </div>
+                                <% }else if(orders.orders[i].orderItems.orderStatus=='Returned' ){ %>
+                                        <div class="product-body  m-2">
+                                            <h5 class="text-danger me-4">Returned</h5>
+                                        </div>
+                                    <% }else{ %>
+                                        <div class="product-body  m-2">
+
+                                            <form action="/admin/updateOrderStatus?id=<%= orders.orders[i]. orderItems._id%>"
+                                                method="post">
+                                                <label for="paymentMethod">Change Status:</label>
+                                                <select id="paymentMethod" name="status">
+                                                    <option value="<%= orders.orders[i].orderItems.orderStatus%>" hidden>
+                                                    </option>
+                                                    <option value="Pending">Pending</option>
+                                                    <option value="Shipped">Shipped</option>
+                                                    <option value="Delivered">Delivered</option>
+                                                    <option value="Canceled">Canceled</option>
+                                                    <option value="Ordered">Ordered</option>
+                                                </select>
+                                                <div class="d-flex justify-content-center p-3"><input
+                                                        class="pe-2 ps-2 pt-1 pb-1 text-white"
+                                                        style="background-color: rgb(27, 141, 27);border-radius: 5px; border: none;"
+                                                        type="submit" value="submit"></div>
+                                                <% } %>
+                                            </form>
+                                        </div>
+                        </div>
+
+
+                    </div>
+                    <% } %>
+                    </div>
+                    
+    </section>
+    <!-- CONTENT -->
+    <form >
+        <div class="col-12 pb-1">
+            <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mb-3">
+                <!-- <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                </li> -->
+                <ul class="pagination">
+                    <% for (let i = 1; i <= orders.totalPages; i++) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                        </li>
+                    <% } %>
+                </ul>
+                <!-- <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+                </li> -->
+            </ul>
+            </nav>
+        </div>
+    </form>
+    <script>
+        function submitForm(productId) {
+            var form = document.getElementById('unlistForm' + productId);
+            form.action = '/admin/unlistProduct?id=' + productId;
+            form.submit();
+        }
+    </script>
+
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+</html>

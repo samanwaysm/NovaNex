@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaNex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <!-- <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"> -->
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <!-- <link href="css1/style.css" rel="stylesheet"> -->
+    <!-- <link href="css1/style.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="css/userCart.css">
+
+</head>
+<body>
+    <!-- header -->
+  <header class="bg-white text-black">
+    <div class="container-fluid pt-2 pb-2">
+      <div class=" d-flex justify-content-between mobile-header ">
+
+
+
+        <div class="navigation-mobile-list ">
+          <ul>
+            <li><a href="">home</a></li>
+            <li><a href=""><i class="bi bi-person-fill text-dark"></i>user</a></li>
+            <li><a href=""><i class="bi bi-heart-fill text-dark"></i>wishlist</a></li>
+            <li><a href=""><i class="bi bi-bag-fill text-dark"></i>cart</a></li>
+          </ul>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="hamburger_menu">
+            <button class="toggle-bar " onclick="toggle()" title="Toggle Menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+          <div>
+            <a class="home_route" href="/"><h1>NovaNex</h1></a>
+          </div>
+
+        </div>
+
+        <div class="d-flex align-items-center form-inputs col-12 col-sm-4  position-relative">
+          <input class="form-control" type="text" placeholder="search...">
+        </div>
+
+        <% if(isUserAuthenticated){ %>
+        <div class="d-flex align-content-center  " id="menu-short-cut">
+          <div class="icon-container">
+            <a href="/userProfile" class="text-dark m-2">
+              <i class="bi bi-person-fill text-dark" style="font-size: 17px;"></i>
+              </i>
+            </a>
+          </div>
+          <div class="icon-container">
+            <a href="#" class="text-dark m-2">
+              <i class="bi bi-heart-fill text-dark"></i>
+              </i>
+            </a>
+          </div>
+          <div class="icon-container">
+            <a href="/userCart" class="text-dark m-2">
+              <i class="bi bi-bag-fill text-dark">
+              </i>
+            </a>
+          </div>
+          <!-- <div class="icon-container">
+            <a href="/api/logout" class="text-dark m-2">
+              <i class="bi bi-box-arrow-left text-dark"></i>
+              </i>
+            </a>
+          </div> -->
+        </div>
+      </div>
+      <% }else{ %>
+        <div class="d-flex align-content-center  " id="menu-short-cut">
+          <div class="icon-container">
+            <a href="/login" class="text-dark m-2">
+              <i class="bi bi-person text-dark"></i>
+              <!-- <i class="bi bi-person"></i> -->
+              </i>
+            </a>
+          </div>
+          <div class="icon-container">
+            <a href="#" class="text-dark m-2">
+              <i class="bi bi-heart text-dark"></i>
+              </i>
+            </a>
+          </div>
+          <div class="icon-container">
+            <a href="#" class="text-dark m-2">
+              <i class="bi bi-bag text-dark">
+              </i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+    </div>
+
+    <script src="script.js"></script>
+
+  </header>
+  <!-- header -->
+
+<!-- <link rel="stylesheet" href="css/userCart.css"> -->
+<body>
+  <section class="h-100 h-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="col-lg-8">
+                                <div class="p-5">
+                                    <div class="d-flex justify-content-between align-items-center mb-5">
+                                        <h1 class="fw-bold mb-0 text-black">cart</h1>
+                                        <h6 class="mb-0 text-muted">3 items</h6>
+                                    </div>
+                                    <hr class="my-4">
+
+                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <img src="<%= cartDetails.cartItems[0].productId.image[0] %>"
+                                                class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <h6 class="text-muted"><%= cartDetails.cartItems[0].productId.productName %></h6>
+                                            <h6 class="text-black mb-0">Cotton T-shirt</h6>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                            <button class="btn btn-link px-2"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+
+                                            <input id="form1" min="0" name="quantity" value="1" type="number"
+                                                class="form-control form-control-sm" />
+
+                                            <button class="btn btn-link px-2"
+                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                            <h6 class="mb-0">€ 44.00</h6>
+                                        </div>
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <div class="pt-5">
+                                        <h6 class="mb-0"><a href="#!" class="text-body"><i
+                                                    class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 bg-grey">
+                                <div class="p-5">
+                                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <h5 class="text-uppercase">items 3</h5>
+                                        <h5>€ 132.00</h5>
+                                    </div>
+
+                                    <h5 class="text-uppercase mb-3">Shipping</h5>
+
+                                    <div class="mb-4 pb-2">
+                                        <select class="select">
+                                            <option value="1">Standard-Delivery- €5.00</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                            <option value="4">Four</option>
+                                        </select>
+                                    </div>
+
+                                    <h5 class="text-uppercase mb-3">Give code</h5>
+
+                                    <div class="mb-5">
+                                        <div class="form-outline">
+                                            <input type="text" id="form3Examplea2"
+                                                class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Examplea2">Enter your code</label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-5">
+                                        <h5 class="text-uppercase">Total price</h5>
+                                        <h5>€ 137.00</h5>
+                                    </div>
+
+                                    <button type="button" class="btn btn-dark btn-block btn-lg"
+                                        data-mdb-ripple-color="dark">Register</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+	<!-- <main class="page">
+	 	<section class="shopping-cart dark">
+	 		<div class="container">
+		        <div class="block-heading">
+		          <h2>Cart</h2>
+		        </div>
+		        <div class="content">
+	 				<div class="row">
+	 					<div class="col-md-9">
+	 						<div class="items">
+				 				<div class="product">
+				 					<div class="row">
+					 					<div class="col-md-3">
+					 						<img class="img-fluid mx-auto d-block image" src="img1/iphone-15-pro EDIT.jpeg">
+					 					</div>
+					 					<div class="col-md-8">
+					 						<div class="info">
+						 						<div class="row">
+							 						<div class="col-md-5 product-name">
+							 							<div class="product-name">
+								 							<a class="product-Name" href="#">Lorem Ipsum dolor</a>
+								 							<div class="product-info">
+									 							<div>Display: <span class="value">5 inch</span></div>
+									 							<div>RAM: <span class="value">4GB</span></div>
+									 							<div>Memory: <span class="value">32GB</span></div>
+									 						</div>
+									 					</div>
+							 						</div>
+							 						<div class="col-md-4 quantity">
+							 							<label for="quantity">Quantity:</label>
+							 							<input id="quantity" type="number" value ="1" class="form-control quantity-input">
+							 						</div>
+							 						<div class="col-md-3 price">
+							 							<span>&#8377;120000</span>
+							 						</div>
+							 					</div>
+							 				</div>
+					 					</div>
+										 <div class="col-md-1 delete">
+                                            <form action="" method="post">
+                                                <button class="" style="border: none;background-color: #fff;"><i class="bi bi-x-lg text-dark"></i></button>
+                                            </form>
+										</div>
+					 				</div>
+				 				</div>
+				 			</div>
+			 			</div>
+			 			<div class="col-md-3">
+			 				<div class="summary">
+			 					<h3>Summary</h3>
+			 					<div class="summary-item"><span class="text">Subtotal</span><span class="price">&#8377;360</span></div>
+			 					<div class="summary-item"><span class="text">Discount</span><span class="price">&#8377;0</span></div>
+			 					<div class="summary-item"><span class="text">Shipping</span><span class="price">&#8377;0</span></div>
+			 					<div class="summary-item"><span class="text">Total</span><span class="price">&#8377;360</span></div>
+			 					<button type="button" class="btn btn-lg btn-block btn-ch">Checkout</button>
+				 			</div>
+			 			</div>
+		 			</div> 
+		 		</div>
+	 		</div>
+		</section>
+	</main>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body> -->
+<link href="css1/style.css" rel="stylesheet">
+<%-include("footer")-%>
