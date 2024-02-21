@@ -6,6 +6,7 @@ var Coupon = require("../../model/couponSchema");
 var Offer = require("../../model/offerSchema");
 var Referral = require("../../model/referralSchema");
 const CsvParser = require("json2csv").Parser;
+const sharp = require('sharp')
 
 exports.adminLoginCheck = async (req, res) => {
   const admin = {
@@ -211,141 +212,6 @@ exports.Dashboard = async (req, res, next) => {
     console.log(err);
     res.status(500).send("Internal server err");
   }
-
-  // try {
-  //   const { sort = '' } = req.query;
-
-  //   console.log('sort',sort);
-  //   const sorted = sort.trim() ? sort.trim().toLowerCase() : 'monthly';
-  //   let orderQuery = []
-
-  //   let orderData = {}
-
-  //   switch (sorted) {
-  //     case 'weekly':
-  //       const week = [{
-  //         $addFields: {
-  //           week: {
-  //             $switch: {
-  //               branches: [
-  //                 { case: { $eq: [{ $dayOfWeek: '$orderDate' }, 1] }, then: "Sunday" },
-  //                 { case: { $eq: [{ $dayOfWeek: '$orderDate' }, 2] }, then: 'Monday' },
-  //                 { case: { $eq: [{ $dayOfWeek: '$orderDate' }, 3] }, then: 'Tuesday' },
-  //                 { case: { $eq: [{ $dayOfWeek: '$orderDate' }, 4] }, then: 'Wednesday' },
-  //                 { case: { $eq: [{ $dayOfWeek: '$orderDate' }, 5] }, then: 'Thursday' },
-  //                 { case: { $eq: [{ $dayOfWeek: '$orderDate' }, 6] }, then: 'Friday' },
-  //                 { case: { $eq: [{ $dayOfWeek: '$orderDate' }, 7] }, then: 'Saturday' },
-  //               ]
-  //             }
-  //           }
-  //         },
-  //       },
-  //       {
-  //         $group: {
-  //           _id: '$week',
-  //           total: { $sum: 1 }
-  //         }
-  //       }];
-  //       let weekData = {
-  //         'Sunday': 0,
-  //         'Monday': 0,
-  //         'Tuesday': 0,
-  //         'Wednesday': 0,
-  //         'Thursday': 0,
-  //         'Friday': 0,
-  //         'Saturday': 0,
-  //       }
-  //       orderData = { ...weekData }
-  //       orderQuery = [...week]
-
-  //       break;
-  //     case 'monthly':
-  //       const month = [
-  //         {
-  //           $addFields: {
-  //             month: {
-  //               $switch: {
-  //                 branches: [
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 1] }, then: "January" },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 2] }, then: 'February' },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 3] }, then: 'March' },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 4] }, then: 'April' },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 5] }, then: 'May' },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 6] }, then: 'June' },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 7] }, then: 'July' },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 8] }, then: 'August' },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 9] }, then: 'September' },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 10] }, then: 'October' },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 11] }, then: 'November' },
-  //                   { case: { $eq: [{ $month: '$orderDate' }, 12] }, then: 'December' },
-  //                 ]
-  //               }
-  //             }
-  //           },
-  //         },
-  //         {
-  //           $group: {
-  //             _id: '$month',
-  //             total: { $sum: 1 }
-  //           }
-  //         },
-
-  //       ];
-  //       let monthData = {
-  //         'January': 0,
-  //         'February': 0,
-  //         'March': 0,
-  //         'April': 0,
-  //         'May': 0,
-  //         'June': 0,
-  //         'July': 0,
-  //         'August': 0,
-  //         'September': 0,
-  //         'October': 0,
-  //         'November': 0,
-  //         'December': 0,
-  //       }
-  //       orderData = { ...monthData }
-  //       orderQuery = [...month]
-  //       break;
-  //     case 'yearly':
-  //       const year = [
-  //         {
-  //           $addFields: {
-  //             year: { $year: '$orderDate' }
-  //           }
-
-  //         },
-  //         {
-  //           $group: {
-  //             _id: '$year',
-  //             count: { $sum: 1 }
-  //           }
-  //         }
-  //       ];
-  //       orderQuery = [...year]
-  //       break;
-  //   }
-  //   console.log(orderQuery);
-  //   console.log(...orderQuery)
-  //   const orderDetails = await Order.aggregate(orderQuery);
-
-  //   if (sort === 'yearly') {
-  //     orderDetails.forEach(items => {
-  //       orderData[items._id] = items.count
-  //     })
-  //   } else {
-  //     orderDetails.forEach(items => {
-  //       if (orderData.hasOwnProperty(items._id)) {
-  //         orderData[items._id] = items.total
-  //       }
-  //     })
-  //   }
-
-  //   res.status(200).json({ status: 'success', orderData: orderData })
-  // } catch (error) {
-  //   next(error);
-  // }
 };
 
 exports.userManagement = async (req, res) => {
@@ -920,7 +786,7 @@ exports.salesReport = async (req, res, next) => {
 
 exports.addCoupon = async (req, res) => {
   console.log("hiii");
-  const { couponCode, discount, expiredDate, minPurchaseAmount, maxRedeemableAmount, maxUse } = req.body;
+  const { couponCode, expiredDate, minPurchaseAmount, maxRedeemableAmount } = req.body;
   const now = new Date();
   if (couponCode) {
     try {
@@ -940,7 +806,6 @@ exports.addCoupon = async (req, res) => {
     code: couponCode,
     // discount: discount,
     expiry: expiredDate,
-    maxUse: maxUse,
     minPurchaseAmont: minPurchaseAmount,
     maxRedeemableAmount: maxRedeemableAmount,
   });
@@ -984,7 +849,6 @@ exports.editCoupon = async (req, res) => {
   const couponCode = req.body.couponCode
   // const discount = Number(req.body.discount)
   const expiry = req.body.expiredDate
-  const maxUse = Number(req.body.maxUse)
   const minPurchaseAmont = Number(req.body.minPurchaseAmount)
   const maxRedeemableAmount = Number(req.body.maxRedeemableAmount)
   console.log(typeof (minPurchaseAmont));
@@ -992,9 +856,7 @@ exports.editCoupon = async (req, res) => {
     const d = await Coupon.updateOne({ _id: couponId }, {
       $set: {
         code: couponCode,
-        // discount: discount,
         expiry: expiry,
-        maxUse: maxUse,
         minPurchaseAmont: minPurchaseAmont,
         maxRedeemableAmount: maxRedeemableAmount
       }

@@ -121,7 +121,7 @@
                                 <th> Coupon Code </th>
                                 <!-- <th> Discount </th> -->
                                 <th> Expires At </th>
-                                <th> Maximum Use </th>
+                                <!-- <th> Maximum Use </th> -->
                                 <th>Minimum Purchase Amount</th>
                                 <th>Max Redemabele Amount</th>
                                 <th> Edit </th>
@@ -135,7 +135,7 @@
                                 <td><%= coupon[i].code %></td>
                                 <!-- <td><%#= coupon[i].discount %></td> -->
                                 <td><%= new Date(coupon[i].expiry).toLocaleDateString('en-GB') %></td>
-                                <td><%= coupon[i].maxUse %></td>
+                                <!-- <td><%= coupon[i].maxUse %></td> -->
                                 <td><%= coupon[i].minPurchaseAmont %></td>
                                 <td><%= coupon[i].maxRedeemableAmount %></td>
                                 <td> <a href="/adminCouponEdit?id=<%= coupon[i]._id %>"><i class="bi bi-pencil-fill" style="font-size: 19px;color: rgb(9, 9, 9);"></i></a> </td>

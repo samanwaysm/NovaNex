@@ -723,8 +723,6 @@ exports.userApplyCoupon = async (req, res) => {
       const currentDate = new Date();
       if (coupon.expiry < currentDate) {
         res.status(400).json({ message: 'coupon expired' });
-      // } else if (coupon.maxUse <= 0) {
-      //   res.status(400).json({ message: 'Coupon usage limit exceeded!' });
       } else if(coupon.minPurchaseAmont>= totalAmount){
         res.status(400).json({ message: `mininum puchase amount is ${coupon.minPurchaseAmont}!` });
     }else {

@@ -20,10 +20,6 @@ const schema = new mongoose.Schema({
     required: true,
     default: Date.now(),
   },
-  maxUse: {
-    type: Number,
-    required: true,
-  },
   minPurchaseAmont: {
     type: Number,
     required: true,

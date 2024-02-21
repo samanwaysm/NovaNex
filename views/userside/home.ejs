@@ -133,7 +133,7 @@
                 <h2 class="section-title px-5"><span class="px-2">Coupon</span></h2>
             </div>
             <% for(i=0;i<coupons.length;i++) {%>
-            <div class="container mt-5"> <div class="d-flex justify-content-center row"> <div class="col-md-6"> <div class="coupon p-3 bg-white"> <div class="row no-gutters"> <div class="col-md-4 border-right"> <div class="d-flex flex-column align-items-center"><img src=""><span class="d-block">NovaNex</span><span class="text-black-50">Accessories</span></div> </div> <div class="col-md-8"> <div> <div class="d-flex flex-row justify-content-end off"> <h1>Upto <%= coupons[i].maxRedeemableAmount %></h1><span>OFF</span></div> <div class="d-flex flex-row justify-content-between off px-3 p-2"><span>Promo code:</span><span class="border border-success px-3 rounded code"><%= coupons[i].code %></span></div> </div> </div> </div> </div> </div> </div> </div>
+            <div class="container mt-5"> <div class="d-flex justify-content-center row"> <div class="col-md-6"> <div class="coupon p-3 bg-white"> <div class="row no-gutters"> <div class="col-md-4 border-right"> <div class="d-flex flex-column align-items-center"><img src=""><span class="d-block">NovaNex</span><span class="text-black-50">Accessories</span></div> </div> <div class="col-md-8"> <div> <div class="d-flex flex-row justify-content-end off"> <h1> <%= coupons[i].maxRedeemableAmount %></h1><span>OFF</span></div> <div class="d-flex flex-row justify-content-between off px-3 p-2"><span>Promo code:</span><span class="border border-success px-3 rounded code"><%= coupons[i].code %></span></div> </div> </div> </div> </div> </div> </div> </div>
             <% } %>
         </div>
         <% } %>

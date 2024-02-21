@@ -391,6 +391,8 @@ exports.updateCanceled = async (req, res) => {
       { _id: productId },
       { $inc: { inStock: quantity } }
     );
+
+    
     const amount = order.totalAmount
     await Wallet.updateOne(
       {userId: userId },

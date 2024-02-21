@@ -133,6 +133,7 @@
                             <div>
                                 <label for="image">Image</label>
                                 <input class="border border-dark" type="file" name="image" id="imageInput" style="background-color: rgb(255, 255, 255);">
+                                <p class="err-msg d-flex justify-content-end" id="errorElement2" style=" color: red; font-size: 14px;"></p>
                                 <img id="imagePreview" src="#" alt="Preview" style="width: 200px; display: none; position: relative;">
                                 <button type="button" id="deleteImageBtn" style="position: absolute; top: 5px; right: 5px; display: none; background-color: transparent; border: none; cursor: pointer; font-size: 14px;">X</button>
                             </div>
@@ -154,39 +155,150 @@
     </section>
     <!-- CONTENT -->
     <script>
+        // function setupImagePreview() {
+        //     const input = document.getElementById('imageInput');
+        //     const preview = document.getElementById('imagePreview');
+        //     const deleteBtn = document.getElementById('deleteImageBtn');
+    
+        //     input.addEventListener('change', function () {
+        //         const file = this.files[0];
+    
+        //         if (file) {
+        //             const reader = new FileReader();
+    
+        //             reader.onload = function (e) {
+        //                 preview.src = e.target.result;
+        //                 preview.style.display = 'block';
+        //                 deleteBtn.style.display = 'block';
+        //             };
+    
+        //             reader.readAsDataURL(file);
+        //         } else {
+        //             preview.style.display = 'none';
+        //             deleteBtn.style.display = 'none';
+        //         }
+        //     });
+    
+        //     deleteBtn.addEventListener('click', function () {
+        //         // Clear the file input and hide the preview and delete button
+        //         input.value = '';
+        //         preview.style.display = 'none';
+        //         deleteBtn.style.display = 'none';
+        //     });
+        // }
+    
+        // setupImagePreview();
+
+
+
         function setupImagePreview() {
-            const input = document.getElementById('imageInput');
-            const preview = document.getElementById('imagePreview');
-            const deleteBtn = document.getElementById('deleteImageBtn');
-    
-            input.addEventListener('change', function () {
-                const file = this.files[0];
-    
-                if (file) {
-                    const reader = new FileReader();
-    
-                    reader.onload = function (e) {
-                        preview.src = e.target.result;
-                        preview.style.display = 'block';
-                        deleteBtn.style.display = 'block';
-                    };
-    
-                    reader.readAsDataURL(file);
-                } else {
-                    preview.style.display = 'none';
-                    deleteBtn.style.display = 'none';
-                }
-            });
-    
-            deleteBtn.addEventListener('click', function () {
-                // Clear the file input and hide the preview and delete button
-                input.value = '';
+    const input = document.getElementById('imageInput');
+    const preview = document.getElementById('imagePreview');
+    const deleteBtn = document.getElementById('deleteImageBtn');
+    const errorElement = document.getElementById('errorElement2');
+
+    input.addEventListener('change', function () {
+        const file = this.files[0];
+
+        // Clear previous error messages
+        errorElement.textContent = '';
+
+        if (file) {
+            var imageType = /^image\//; // Regular expression to check image type
+
+            // Check if the file is an image
+            if (!imageType.test(file.type)) {
+                errorElement.textContent = 'Only image files are allowed.';
+                input.value = ''; // Clear the file input
                 preview.style.display = 'none';
                 deleteBtn.style.display = 'none';
-            });
+                return;
+            }
+
+            // Check file size (in bytes)
+            var maxSizeMB = 5; // Set maximum size limit to 5MB
+            if (file.size > maxSizeMB * 1024 * 1024) {
+                errorElement.textContent = 'File size exceeds 5MB limit.';
+                input.value = ''; // Clear the file input
+                preview.style.display = 'none';
+                deleteBtn.style.display = 'none';
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                deleteBtn.style.display = 'block';
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+            deleteBtn.style.display = 'none';
         }
-    
-        setupImagePreview();
+    });
+
+    deleteBtn.addEventListener('click', function () {
+        // Clear the file input and hide the preview and delete button
+        input.value = '';
+        preview.style.display = 'none';
+        deleteBtn.style.display = 'none';
+    });
+}
+
+setupImagePreview();
+
+
+
+
+        // function setupImagePreview() {
+        //     const input = document.getElementById('imageInput');
+        //     const preview = document.getElementById('imagePreview');
+        //     const deleteBtn = document.getElementById('deleteImageBtn');
+
+        //     input.addEventListener('change', function () {
+        //         const file = this.files[0];
+
+        //         if (file) {
+        //             // Check if the selected file is an image
+        //             const fileType = file.type.split('/')[0]; // Extract file type (e.g., 'image')
+        //             if (fileType !== 'image') {
+        //                 alert('Please select an image file.');
+        //                 input.value = ''; // Clear the file input
+        //                 return;
+        //             }
+
+        //             const reader = new FileReader();
+
+        //             reader.onload = function (e) {
+        //                 preview.src = e.target.result;
+        //                 preview.style.display = 'block';
+        //                 deleteBtn.style.display = 'block';
+        //             };
+
+        //             reader.readAsDataURL(file);
+        //         } else {
+        //             preview.style.display = 'none';
+        //             deleteBtn.style.display = 'none';
+        //         }
+        //     });
+
+        //     deleteBtn.addEventListener('click', function () {
+        //         // Clear the file input and hide the preview and delete button
+        //         input.value = '';
+        //         preview.style.display = 'none';
+        //         deleteBtn.style.display = 'none';
+        //     });
+        // }
+
+        // setupImagePreview();
+
+        
+
+
+
     </script>
     <script src="js/adminCategory.js"></script>
     <script src="script.js"></script>

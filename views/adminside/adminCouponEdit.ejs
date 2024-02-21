@@ -121,7 +121,7 @@
         <!-- </div> -->
 
         <!-- <div class="container " style="background-color: rgb(233, 230, 221);"> -->
-            <form action="/admin/editCoupon?id=<%= coupon[0]._id %>" id="couponManagmentFormSubmit" method="post" style="background-color: none">
+            <form action="/admin/editCoupon?id=<%= coupon[0]._id %>" id="form" method="post" style="background-color: none">
                 <div class="container p-5" style="background-color: rgb(255, 255, 255);">    
                     <div class="input-box">
                         <div>
@@ -148,13 +148,13 @@
                         </div>
                     </div>
 
-                    <div class="input-box">                           
+                    <!-- <div class="input-box">                           
                         <div>
                             <label for="discount">Maximum Use : </label>
                             <input class="border border-dark" type="number" name="maxUse" id="maxUse">
                             <p class="err-msg d-flex justify-content-start" id="errorElement3" style=" color: red; font-size: 14px; margin-left: 125px;"></p>
                         </div>                      
-                    </div>
+                    </div> -->
                     <div class="input-box">                           
                         <div>
                             <label for="discount">Minimum Purchase Amount : </label>
@@ -177,7 +177,7 @@
         </div>
     </section>
     <!-- CONTENT -->
-    <script src="js/addCoupon.js"></script>
+    <script src="js/editCoupon.js"></script>
 
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

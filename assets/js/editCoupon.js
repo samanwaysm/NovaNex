@@ -37,8 +37,8 @@ form.addEventListener('submit', (e) => {
      if (maxRedeemableAmount.value === '') {
           maxRedeemableAmounterrmessage.push("Max redeemable amount is Required");
      }else if (parseFloat(maxRedeemableAmount.value) < 0) {
-        maxRedeemableAmounterrmessage.push("Max redeemable amount cannot be negative");
-    }
+          maxRedeemableAmounterrmessage.push("Max redeemable amount cannot be negative");
+     }
      if (minPurchaseAmount.value !== '' && maxRedeemableAmount.value !== '' && parseFloat(minPurchaseAmount.value) < parseFloat(maxRedeemableAmount.value)) {
           maxRedeemableAmounterrmessage.push("It should be lessthan Max redeemable amount");
       }
@@ -59,47 +59,3 @@ form.addEventListener('submit', (e) => {
      }
  });
  
-
-// form.addEventListener('submit', (e) => {
-//     let couponcodeerrmessage = [];
-//     let Expireerrmessage = [];
-//     let maxUseerrmessage = [];
-//     let minPurchaseerrmessage = [];
-//     let maxRedeemableAmounterrmessage = [];
-
-//     if (name1.value.trim() === '') {
-//           couponcodeerrmessage.push("Username is Required");
-//     }
-
-//     if (pincode.value.trim() === '') {
-//           Expireerrmessage.push("Pincode is Required");
-//     }
-
-//     if (locality.value.trim() === '') {
-//           maxUseerrmessage.push("Locality is Required");
-//     }
-
-//     if (address.value.trim() === '') {
-//           minPurchaseerrmessage.push("Address is Required");
-//     }
-
-//     if (district.value.trim() === '') {
-//           maxRedeemableAmounterrmessage.push("District is Required");
-//     }
-
-
-//     if (couponcodeerrmessage.length > 0 ||
-//      Expireerrmessage.length > 0 ||
-//      maxUseerrmessage.length > 0 ||
-//      minPurchaseerrmessage.length > 0 ||
-//      maxRedeemableAmounterrmessage.length > 0) {
-//         e.preventDefault(); // Prevent form submission
-//         errorElement1.innerText = couponcodeerrmessage.join(', ');
-//         errorElement2.innerText = Expireerrmessage.join(', ');
-//         errorElement3.innerText = maxUseerrmessage.join(', ');
-//         errorElement4.innerText = minPurchaseerrmessage.join(', ');
-//         errorElement5.innerText = maxRedeemableAmounterrmessage.join(', ');
-//     } else {
-//         form.submit();
-//     }
-// });
