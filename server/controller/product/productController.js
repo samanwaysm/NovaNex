@@ -67,7 +67,7 @@ exports.searchProducts = async (req,res,next) =>{
 
 
 
-  exports.CategoryShow = async (req,res, next) =>{
+  exports.CategoryShow = async (req,res,next) =>{
     try{
       const categoryList =await Category.find({status:true});
       const Coupons = await Coupon.find({status:true})

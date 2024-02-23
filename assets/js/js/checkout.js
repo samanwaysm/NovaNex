@@ -208,6 +208,7 @@ function proceedToBuy() {
        console.log(b);
     //    let k=b*Number(a)/100
         let k = a
+        document.getElementById('cop-add').innerText = a
        document.getElementById('total-display').innerText= Math.round(b-k)
        console.log(b*Number(a)/100,'juygfdszkjhgfhx')
        document.getElementById('redeem-btn').disabled = true;
@@ -221,6 +222,7 @@ function proceedToBuy() {
         document.getElementById('couponCode').value = "";
         $('#error-message').html('<p class="error ms-1 text-danger" style="font-size:14px">Coupon Removed</p>');
         console.log(x)
+        document.getElementById('cop-add').innerText = 0
     }
 // </script>
 

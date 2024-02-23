@@ -823,7 +823,7 @@ exports.addCoupon = async (req, res) => {
 
 exports.couponAxios = async (req, res) => {
   try {
-    await Coupon.updateMany({ expiredDate: { $lt: Date.now() } }, { $set: { status: false } });
+    await Coupon.updateMany({ expiry: { $lt: Date.now() } }, { $set: { status: false } });
     const couponData = await Coupon.find({ status: true })
     console.log(couponData);
     res.send(couponData)

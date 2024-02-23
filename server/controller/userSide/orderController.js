@@ -187,6 +187,7 @@ console.log("Total Amount:", totalAmount);
       userId: req.session.userId,
       orderItems: orderItems,
       address: valueAddress,
+      couponDiscount: req.session.randomDiscount,
       totalAmount: totalAmount,
       paymentMethod:
         req.body.paymentMethod === "cod"
@@ -233,7 +234,8 @@ console.log("Total Amount:", totalAmount);
           $push: {
             'transactionHistory': {
               amount: totalAmount,
-              paymentType: 'Debit'
+              paymentType: 'Debit',
+              reason:'Ordered'
             }
           }
         }
@@ -320,7 +322,7 @@ exports.userOrders = async (req, res) => {
   const userId = req.query.id;
   // console.log(userId);
   const page = req.query.page || 1;
-  const limit = 15;
+  const limit = 30;
   try {
     const Orders = await Order.aggregate([
       {
@@ -335,15 +337,15 @@ exports.userOrders = async (req, res) => {
       },
       {
         $sort: {
-          orderDate: -1,
+          orderDate: 1,
         },
       },
-      {
-        $skip:limit*(page-1)
-      },
-      {
-        $limit:limit
-      }
+      // {
+      //   $skip:limit*(page-1)
+      // },
+      // {
+      //   $limit:limit
+      // }
     ]);
 
     const totalPages = await Order.aggregate([
@@ -381,8 +383,20 @@ exports.updateCanceled = async (req, res) => {
   const productId = req.query.productId;
   const quantity = req.query.quantity;
   const userId = req.session.userId;
+  console.log(id);
   try {
     const order = await Order.findOne({"orderItems._id": id})
+    const orderItem = await Order.aggregate([
+      {
+        $unwind: '$orderItems'
+      },
+      {
+        $match: {
+          'orderItems._id': new mongoose.Types.ObjectId(id)
+        }
+      }
+    ]);
+    // console.log("order",orderItem);
     await Order.updateOne(
       { "orderItems._id": id },
       { $set: { "orderItems.$.orderStatus": "Canceled" } }
@@ -392,23 +406,55 @@ exports.updateCanceled = async (req, res) => {
       { $inc: { inStock: quantity } }
     );
 
-    
-    const amount = order.totalAmount
-    await Wallet.updateOne(
-      {userId: userId },
-      { $inc: { walletAmount: amount } }
-    );
-    await Wallet.findOneAndUpdate(
-      { userId: userId },
-      {
-        $push: {
-          'transactionHistory': {
-            amount: amount,
-            paymentType: 'Credit'
+    console.log("len",order.orderItems.length);
+    if(order.orderItems.length == 1){
+      const amount = order.totalAmount
+      await Wallet.updateOne(
+        {userId: userId },
+        { $inc: { walletAmount: amount } }
+      );
+      await Wallet.findOneAndUpdate(
+        { userId: userId },
+        {
+          $push: {
+            'transactionHistory': {
+              amount: amount,
+              paymentType: 'Credit',
+              reason: 'Canceled Order'
+            }
           }
         }
+      )
+    }else{
+      console.log("skkss");
+      const productNum = order.orderItems.length
+      let discAmount = 0;
+      if (order.couponDiscount >0) {
+        console.log("cou");
+        discAmount = (order.couponDiscount/productNum)
       }
-    )
+      console.log(productNum,discAmount);
+      console.log("cdf",orderItem[0].orderItems.price,orderItem[0].orderItems.quantity);
+      const amount = (orderItem[0].orderItems.price*orderItem[0].orderItems.quantity)-discAmount
+      console.log("amt",amount)
+      await Wallet.updateOne(
+        {userId: userId },
+        { $inc: { walletAmount: amount } }
+      );
+      await Wallet.findOneAndUpdate(
+        { userId: userId },
+        {
+          $push: {
+            'transactionHistory': {
+              amount: amount,
+              paymentType: 'Credit',
+              reason: 'Canceled Order'
+            }
+          }
+        }
+      )
+    }
+    
     // console.log('kjk',d);
     res.redirect("/userOrders");
   } catch (err) {
@@ -421,8 +467,48 @@ exports.updateReturned = async (req, res) => {
   const productId = req.query.productId;
   const quantity = req.query.quantity;
   const userId = req.session.userId;
+  // try {
+  //   const order = await Order.findOne({"orderItems._id": id})
+  //   await Order.updateOne(
+  //     { "orderItems._id": id },
+  //     { $set: { "orderItems.$.orderStatus": "Returned" } }
+  //   );
+  //   const d = await Product.updateOne(
+  //     { _id: productId },
+  //     { $inc: { inStock: quantity } }
+  //   );
+  //   const amount = order.totalAmount
+  //   await Wallet.updateOne(
+  //     {userId: userId },
+  //     { $inc: { walletAmount: amount } }
+  //   );
+  //   await Wallet.findOneAndUpdate(
+  //     { userId: userId },
+  //     {
+  //       $push: {
+  //         'transactionHistory': {
+  //           amount: amount,
+  //           paymentType: 'Credit',
+  //           reason:'Returned Order'
+  //         }
+  //       }
+  //     }
+  //   )
+  //   // console.log('kjk',d);
+  //   res.redirect("/userOrders");
   try {
     const order = await Order.findOne({"orderItems._id": id})
+    const orderItem = await Order.aggregate([
+      {
+        $unwind: '$orderItems'
+      },
+      {
+        $match: {
+          'orderItems._id': new mongoose.Types.ObjectId(id)
+        }
+      }
+    ]);
+    // console.log("order",orderItem);
     await Order.updateOne(
       { "orderItems._id": id },
       { $set: { "orderItems.$.orderStatus": "Returned" } }
@@ -431,22 +517,56 @@ exports.updateReturned = async (req, res) => {
       { _id: productId },
       { $inc: { inStock: quantity } }
     );
-    const amount = order.totalAmount
-    await Wallet.updateOne(
-      {userId: userId },
-      { $inc: { walletAmount: amount } }
-    );
-    await Wallet.findOneAndUpdate(
-      { userId: userId },
-      {
-        $push: {
-          'transactionHistory': {
-            amount: amount,
-            paymentType: 'Credit'
+
+    console.log("len",order.orderItems.length);
+    if(order.orderItems.length == 1){
+      const amount = order.totalAmount
+      await Wallet.updateOne(
+        {userId: userId },
+        { $inc: { walletAmount: amount } }
+      );
+      await Wallet.findOneAndUpdate(
+        { userId: userId },
+        {
+          $push: {
+            'transactionHistory': {
+              amount: amount,
+              paymentType: 'Credit',
+              reason: 'Returned Order'
+            }
           }
         }
+      )
+    }else{
+      console.log("skkss");
+      const productNum = order.orderItems.length
+      let discAmount = 0;
+      if (order.couponDiscount >0) {
+        console.log("cou");
+        discAmount = (order.couponDiscount/productNum)
       }
-    )
+      console.log(productNum,discAmount);
+      console.log("cdf",orderItem[0].orderItems.price,orderItem[0].orderItems.quantity);
+      const amount = (orderItem[0].orderItems.price*orderItem[0].orderItems.quantity)-discAmount
+      console.log("amt",amount)
+      await Wallet.updateOne(
+        {userId: userId },
+        { $inc: { walletAmount: amount } }
+      );
+      await Wallet.findOneAndUpdate(
+        { userId: userId },
+        {
+          $push: {
+            'transactionHistory': {
+              amount: amount,
+              paymentType: 'Credit',
+              reason: 'Returned Order'
+            }
+          }
+        }
+      )
+    }
+    
     // console.log('kjk',d);
     res.redirect("/userOrders");
   } catch (err) {

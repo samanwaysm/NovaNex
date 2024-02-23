@@ -206,9 +206,9 @@
                             <div>
                                 <label for="image">Image</label>
                                 <input class="border border-dark" type="file" name="image" id="image" multiple onchange="previewImages(this)">
-                                <!-- <div id="imagePreviewContainer" class="image-preview-container"></div>
+                                <div id="imagePreviewContainer" class="image-preview-container"></div>
                                 <input type="hidden" name="uploadedImages" id="uploadedImages" multiple>
-                                <p class="err-msg d-flex justify-content-end" id="errorElement12" style=" color: red; font-size: 14px;"></p> -->
+                                <p class="err-msg d-flex justify-content-end" id="errorElement12" style=" color: red; font-size: 14px;"></p>
                             </div>
         
                             <!-- <div>
@@ -238,7 +238,7 @@
                         <div>
                             <div id="imagePreviewContainer" class="image-preview-container"></div>
                             <input type="hidden" name="uploadedImages" id="uploadedImages" multiple>
-                            <p class="err-msg d-flex justify-content-end" id="errorElement12" style=" color: red; font-size: 14px;"></p>
+                            <!-- <p class="err-msg d-flex justify-content-end" id="errorElement12" style=" color: red; font-size: 14px;"></p> -->
                         </div>
 
                         <div class="btn-container">
@@ -255,54 +255,126 @@
     </section>
     <!-- CONTENT -->
     <script>
-        function previewImages(input) {
-        var container = document.getElementById('imagePreviewContainer');
-        container.innerHTML = '';
+    //     function previewImages(input) {
+    //     var container = document.getElementById('imagePreviewContainer');
+    //     container.innerHTML = '';
 
-        var files = input.files;
+    //     var files = input.files;
 
-        for (var i = 0; i < files.length; i++) {
-            var reader = new FileReader();
+    //     for (var i = 0; i < files.length; i++) {
+    //         var reader = new FileReader();
 
-            reader.onload = function (e) {
-                var preview = document.createElement('div');
-                preview.className = 'image-preview';
+    //         reader.onload = function (e) {
+    //             var preview = document.createElement('div');
+    //             preview.className = 'image-preview';
 
-                var image = document.createElement('img');
-                image.src = e.target.result;
-                image.style.width = '100%';
-                image.style.height = '100%';
+    //             var image = document.createElement('img');
+    //             image.src = e.target.result;
+    //             image.style.width = '100%';
+    //             image.style.height = '100%';
 
-                var deleteBtn = document.createElement('button');
-                deleteBtn.className = 'delete-image-btn';
-                deleteBtn.innerHTML = 'x';
-                deleteBtn.onclick = function () {
-                    preview.remove();
-                    updateUploadedImages();
-                };
+    //             var deleteBtn = document.createElement('button');
+    //             deleteBtn.className = 'delete-image-btn';
+    //             deleteBtn.innerHTML = 'x';
+    //             deleteBtn.onclick = function () {
+    //                 preview.remove();
+    //                 updateUploadedImages();
+    //             };
 
-                preview.appendChild(image);
-                preview.appendChild(deleteBtn);
-                container.appendChild(preview);
+    //             preview.appendChild(image);
+    //             preview.appendChild(deleteBtn);
+    //             container.appendChild(preview);
 
+    //             updateUploadedImages();
+    //         };
+
+    //         reader.readAsDataURL(files[i]);
+    //     }
+    // }
+
+    // function updateUploadedImages() {
+    //     var container = document.getElementById('imagePreviewContainer');
+    //     var previews = container.getElementsByClassName('image-preview');
+    //     var uploadedImagesInput = document.getElementById('uploadedImages');
+
+    //     var uploadedImages = Array.from(previews).map(function (preview) {
+    //         return preview.getElementsByTagName('img')[0].src;
+    //     });
+
+    //     uploadedImagesInput.value = JSON.stringify(uploadedImages);
+    // }
+    function previewImages(input) {
+    var container = document.getElementById('imagePreviewContainer');
+    container.innerHTML = '';
+
+    var files = input.files;
+
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+
+        // Check if the file is an image
+        if (!file.type.startsWith('image/')) {
+            // Display error message if the file is not an image
+            var errorMessage = document.createElement('p');
+            errorMessage.textContent = 'Only image files are allowed.';
+            errorMessage.style.color = 'red';
+            container.appendChild(errorMessage);
+            continue; // Skip to the next file
+        }
+
+        // Check file size (in bytes)
+        var maxSizeMB = 5; // Set maximum size limit to 5MB
+        if (file.size > maxSizeMB * 1024 * 1024) {
+            // Display error message if the file size exceeds the limit
+            var errorMessage = document.createElement('p');
+            errorMessage.textContent = 'File size exceeds 5MB limit.';
+            errorMessage.style.color = 'red';
+            container.appendChild(errorMessage);
+            continue; // Skip to the next file
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var preview = document.createElement('div');
+            preview.className = 'image-preview';
+
+            var image = document.createElement('img');
+            image.src = e.target.result;
+            image.style.width = '100%';
+            image.style.height = '100%';
+
+            var deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-image-btn';
+            deleteBtn.innerHTML = 'x';
+            deleteBtn.onclick = function () {
+                preview.remove();
                 updateUploadedImages();
             };
 
-            reader.readAsDataURL(files[i]);
-        }
+            preview.appendChild(image);
+            preview.appendChild(deleteBtn);
+            container.appendChild(preview);
+
+            updateUploadedImages();
+        };
+
+        reader.readAsDataURL(file);
     }
+}
 
-    function updateUploadedImages() {
-        var container = document.getElementById('imagePreviewContainer');
-        var previews = container.getElementsByClassName('image-preview');
-        var uploadedImagesInput = document.getElementById('uploadedImages');
+function updateUploadedImages() {
+    var container = document.getElementById('imagePreviewContainer');
+    var previews = container.getElementsByClassName('image-preview');
+    var uploadedImagesInput = document.getElementById('uploadedImages');
 
-        var uploadedImages = Array.from(previews).map(function (preview) {
-            return preview.getElementsByTagName('img')[0].src;
-        });
+    var uploadedImages = Array.from(previews).map(function (preview) {
+        return preview.getElementsByTagName('img')[0].src;
+    });
 
-        uploadedImagesInput.value = JSON.stringify(uploadedImages);
-    }
+    uploadedImagesInput.value = JSON.stringify(uploadedImages);
+}
+
 
     </script>
     <script>

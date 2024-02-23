@@ -111,6 +111,10 @@ const schema = new mongoose.Schema({
             }
         }
     ],
+    couponDiscount:{
+        type:Number,
+        default:0
+    },
     totalAmount:{
         type:Number
     },

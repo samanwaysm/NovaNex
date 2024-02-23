@@ -21,7 +21,7 @@
         </form>
     </div>
 
-    <h1 class="text-center text-warning">Transaction History</h1>
+    <h1 class="text-center text-dark">Transaction History</h1>
     <div class="m-5" >
         <table class="table text-white border " >
             <thead class="thead-dark  text-white">
@@ -30,6 +30,7 @@
                     <th scope="col">Amount</th>
                     <th scope="col">Type</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Reason</th>
                 </tr>
             </thead>
             <tbody class="bg-black text-white border ">
@@ -44,6 +45,7 @@
                             <td class="text-danger" ><%=wallet.transactionHistory[i].paymentType  %></td>
                         <% } %>
                         <td ><%=wallet.transactionHistory[i].date.split('T')[0]  %></td>
+                        <td ><%=wallet.transactionHistory[i].reason %></td>
                     </tr>
                 <% } %>              
             </tbody>

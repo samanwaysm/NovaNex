@@ -219,7 +219,8 @@ exports.otpverification = async (req, res) => {
                     $push: {
                         'transactionHistory': {
                             amount: referalOffer[0].referralBonus,
-                            paymentType: 'Credit'
+                            paymentType: 'Credit',
+                            reason:'Referral Bonus'
                         }
                     }
                 })
@@ -230,7 +231,8 @@ exports.otpverification = async (req, res) => {
                     $push: {
                         'transactionHistory': {
                             amount: referalOffer[0].signupBonus,
-                            paymentType: 'Credit'
+                            paymentType: 'Credit',
+                            reason:'Signup Bonus'
                         }
                     }
               })
