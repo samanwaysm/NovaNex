@@ -119,6 +119,7 @@ exports.searchProducts = async (req,res,next) =>{
         const Min = Number(req.query.Min);
         const sort = req.query.sort;
         const search = req.query.search;
+        console.log("max,min",Max,Min);
 
         let product;
 

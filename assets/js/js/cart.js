@@ -221,6 +221,7 @@
             }
 
 
+
 // var discountTotalElement = document.getElementById("discounttotal-display"); 
 // var discountTotalValue = parseFloat(discountTotalElement.innerText);
 

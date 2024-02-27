@@ -1,5 +1,5 @@
 <%-include("includes/header")-%>
-
+<link rel="stylesheet" href="/css/slider.css">
 <!-- Shop Start -->
 <div class="container-fluid pt-5">
   <div class="row px-xl-5">
@@ -38,10 +38,18 @@
                         </li>
                        
                         <li>   
-                            <input type="number" name="Min" >
+                            <!-- <input type="number" name="Min" >
                             <label for="">Min</label><br>
                             <input type="number" name="Max"  class="mt-2">
-                            <label for="">Max</label>
+                            <label for="">Max</label> -->
+                            <div class="min-max-slider mt-2" data-legendnum="2">
+                                <label for="min">Minimum price</label>
+                                <input id="min" class="min text-dark" name="Min" type="range" step="1" min="1" max="1000000" />
+                                <label for="max">Maximum price</label>
+                                <input id="max" class="max text-dark" name="Max" type="range" step="1" min="1" max="1000000" />
+                            </div>
+                            <a href="https://codepen.io/joosts/pen/ZEOxwgg" target="_blank">Turn off JS and CSS</a><br />
+                            <a href="https://stackoverflow.com/a/64612997/2397550" target="_blank">This solution on Stack Overflow</a>
                         </li>
                         
                         <li class="heading">
@@ -253,6 +261,7 @@
       <!-- Shop Product End -->
   </div>
 </div>
+<script src="js/slider.js"></script>
 <!-- Shop End -->
 
 <%-include("includes/footer")-%>

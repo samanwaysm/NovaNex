@@ -13,7 +13,7 @@
 							<% if (cartDetails && cartDetails.cartItems && cartDetails.cartItems.length) { %>
 								<% for (let i = 0; i < cartDetails.cartItems.length; i++) { %>
 								    <div class="items">
-									   <div class="product">
+									   <div class="product position-relative">
 										  <div class="row">
 											 <div class="col-md-3">
 												<img class="img-fluid mx-auto d-block image" src="<%= cartDetails.cartItems[i].productId.image[0] %>">
@@ -37,22 +37,28 @@
 															 <%# } %>
 														  </p>
 													   </div> -->
-													   <div class="col-md-4 quantity d-flex">
-														<button class="btn btn-link px-2 mt-4"
-														    onclick="decrementQuantity('<%= i %>','<%= cartDetails.cartItems[i].productId._id %>')">
-														    <i class="fas fa-minus"></i>
-														</button>
-		    
-														<input id="form<%= i%>" min="1"
-														    max="<%= cartDetails.cartItems[i].productId.inStock %>" name="quantity"
-														    value="<%= cartDetails.cartItems[i].quantity %>" type="number"
-														    class="form-control form-control-sm  mt-4" readonly />
-		    
-														<button class="btn btn-link px-2 mt-4"
-														    onclick="incrementQuantity('<%= i %>','<%= cartDetails.cartItems[i].productId._id %>')">
-														    <i class="fas fa-plus"></i>
-														</button>
-													 </div>
+													   <div class="col-md-4 d-flex justify-content-center">
+															<div class="quantity d-flex">
+																<button class="btn btn-link px-2 mt-4"
+																	onclick="decrementQuantity('<%= i %>','<%= cartDetails.cartItems[i].productId._id %>')">
+																	<i class="fas fa-minus"></i>
+																</button>
+					
+																<input id="form<%= i%>" min="1"
+																	max="<%= cartDetails.cartItems[i].productId.inStock %>" name="quantity"
+																	value="<%= cartDetails.cartItems[i].quantity %>" type="number"
+																	class="form-control form-control-sm  mt-4" style="width: 55px;" id="quantity" readonly />
+																		
+																<button class="btn btn-link px-2 mt-4"
+																	onclick="incrementQuantity('<%= i %>','<%= cartDetails.cartItems[i].productId._id %>')">
+																	<i class="fas fa-plus"></i>
+																</button>
+															</div>
+													   </div>
+														
+													<% if(cartDetails.cartItems[i].productId.inStock == cartDetails.cartItems[i].quantity ){ %>
+														<div class="text-danger mt-2 position-absolute top-50 d-flex" style="left: 25%;">Maximum quantity reached!</div>
+													<% } %>
 													   <div class="col-md-3 price">
 														  <h4>&#8377;<%= cartDetails.cartItems[i].productId.lastPrice%></h4>
 														  <h6 style="margin-left:17px;">
@@ -62,7 +68,7 @@
 												    </div>
 												</div>
 											 </div>
-											 <div class="col-md-1 delete">
+											 <div class="position-absolute p-0 d-flex justify-content-end">
 												<form id="removeForm<%= i %>" action="/api/removeCart?pid=<%= cartDetails.cartItems[i].productId._id %>" method="post">
 												    <button type="submit" value="<%= cartDetails.cartItems[i].productId._id %>" class="delete-btn"><i class="bi bi-x-lg"></i></button>
 												</form>
@@ -141,6 +147,7 @@
 	 		</div>
 		</section>
 	</main>
+	
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/js/cart.js"></script>
 </body>
