@@ -949,7 +949,7 @@ exports.addProductOffer = async (req, res) => {
   }
 }
 
-exports.deleteoffer = async (req, res) => {
+exports.deleteOffer = async (req, res) => {
   try {
     const id = req.query.id
     await Offer.deleteOne({ _id: id })

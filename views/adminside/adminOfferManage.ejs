@@ -129,7 +129,7 @@
 					<div class="product d-flex ps-3 pt-2">
 						<div class="product-body m-2 ">
 							
-							<p>Offer:<span class="text-danger">
+							<p>Offer<span class="text-danger">
 								
 							</span></p>
 								
@@ -147,18 +147,19 @@
 								<%=offer[i].discount %>%
 							</span></p>
 							<p>ExpireDate:<span class="text-danger">
-								<%=offer[i].expiry %>
+								<%=offer[i].expiry.split('T')[0] %>
 							</span></p>
 						</div>
 					</div>
 					<div class="product-dtails p-3 d-flex">
 
 						<div class="buttons m-3 text-center">
-
-							<button class="d-block m-2 text-white p-1"
-								style="width: 100px;background-color:red;border-radius: 7px;color: white; border: solid 2px red;"
-								data-bs-toggle="modal">Delete
-							</button>
+							<a href="/admin/deleteOffer?id=<%=offer[i]._id%>">
+								<button class="d-block m-2 text-white p-1"
+									style="width: 100px;background-color:red;border-radius: 7px;color: white; border: solid 2px red;"
+									data-bs-toggle="modal">Delete
+								</button>
+							</a>
 						</div>
 					</div>
 				</div>

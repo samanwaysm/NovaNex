@@ -97,6 +97,7 @@ route.get('/admin/delOrExpCouponAxios',controller.delOrExpCouponAxios)
 route.post('/admin/addCategoryOffer',controller.addCategoryOffer)
 route.post('/admin/addProductOffer',controller.addProductOffer)
 route.get('/admin/findOffers',controller.findOffers)
+route.get('/admin/deleteOffer',controller.deleteOffer)
 
 route.post('/admin/addOrChangeReferral',controller.addOrChangeReferral)
 route.get('/admin/findReferral',controller.findReferral)
