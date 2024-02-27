@@ -43,7 +43,7 @@ app.use(bodyparser.urlencoded({extended:true}))
 app.set('view engine', 'ejs');
 // app.set('views')
 
-app.use(express.static('assets');
+app.use(express.static('assets'));
 // app.use(express.static(path.join(__dirname, 'public')));
 
 
