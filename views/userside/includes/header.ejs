@@ -46,15 +46,15 @@
         <div class="navigation-mobile-list ">
           <% if(isUserAuthenticated){ %>
           <ul>
-            <li><a href="/">home</a></li>
-            <li><a href="/userProfile"><i class="bi bi-person-fill text-dark"></i>user</a></li>
-            <li><a href=""><i class="bi bi-heart-fill text-dark"></i>wishlist</a></li>
-            <li><a href="/userCart"><i class="bi bi-bag-fill text-dark"></i>cart</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/userProfile"><i class="bi bi-person-fill text-dark"></i>User</a></li>
+            <li><a href="/userOrders"><i class="bi bi-bag-fill text-dark"></i>Wishlist</a></li>
+            <li><a href="/userCart"><i class="bi bi-cart-dash-fill text-dark"></i>Cart</a></li>
           </ul>
           <% }else{ %>
             <ul>
-              <li><a href="">home</a></li>
-              <li><a href=""><i class="bi bi-person text-dark"></i>user</a></li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/login"><i class="bi bi-person text-dark"></i>User</a></li>
               <!-- <li><a href=""><i class="bi bi-heart text-dark"></i>wishlist</a></li>
               <li><a href=""><i class="bi bi-bag text-dark"></i>cart</a></li> -->
             </ul>
@@ -93,14 +93,14 @@
             </a>
           </div>
           <div class="icon-container">
-            <a href="#" class="text-dark m-2">
-              <i class="bi bi-heart-fill text-dark"></i>
+            <a href="/userOrders" class="text-dark m-2">
+              <i class="bi bi-bag-fill text-dark"></i>
               </i>
             </a>
           </div>
           <div class="icon-container">
             <a href="/userCart" class="text-dark m-2">
-              <i class="bi bi-bag-fill text-dark">
+              <i class="bi bi-cart-dash-fill text-dark">
               </i>
             </a>
           </div>

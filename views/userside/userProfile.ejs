@@ -5,7 +5,7 @@
     <!-- Navbar -->
     <div class="container rounded bg-white mt-5 pb-3 pt-3 d-flex justify-content-between" style="border: solid 2px #3b3b3b;">
       <h3>Hii <%=user.name%></h3>
-      <a href="/userWallet"><div class="mt-2 me-3"><h5>Wallet<i class="bi bi-wallet2"></i></h5></div></a>
+      <!-- <a href="/userWallet"><div class="mt-2 me-3"><h5>Wallet<i class="bi bi-wallet2"></i></h5></div></a> -->
     </div>
     <div class="container rounded bg-white mt-0 mb-5 " style="border: solid 2px #858585;border-top: none;">
       <div class="row">
@@ -74,8 +74,8 @@
             <a href="/userAddressPage?id=<%=user._id%>" class="button-link my-2 w-50 mx-2">
               <i class="fa-solid fa-address-book fs-5"></i><br />Address
             </a>
-            <a href="" class="button-link my-2 w-50 mx-2">
-              <i class="fa-solid fa-heart fs-5"></i><br />Wishlist
+            <a href="/userWallet" class="button-link my-2 w-50 mx-2">
+              <i class="fa-solid fa-wallet fs-5"></i><br />Wallet
             </a>
           </div>
           <div
