@@ -383,7 +383,7 @@ exports.updateCanceled = async (req, res) => {
   const productId = req.query.productId;
   const quantity = req.query.quantity;
   const userId = req.session.userId;
-  console.log(id);
+  console.log("id =",id);
   try {
     const order = await Order.findOne({"orderItems._id": id})
     const orderItem = await Order.aggregate([
@@ -411,7 +411,7 @@ exports.updateCanceled = async (req, res) => {
       const amount = order.totalAmount
       await Wallet.updateOne(
         {userId: userId },
-        { $inc: { walletAmount: amount } }
+        { $inc: { walletAmount: amount } },{ upsert: true }
       );
       await Wallet.findOneAndUpdate(
         { userId: userId },
@@ -439,7 +439,7 @@ exports.updateCanceled = async (req, res) => {
       console.log("amt",amount)
       await Wallet.updateOne(
         {userId: userId },
-        { $inc: { walletAmount: amount } }
+        { $inc: { walletAmount: amount } },{ upsert: true }
       );
       await Wallet.findOneAndUpdate(
         { userId: userId },
@@ -523,7 +523,7 @@ exports.updateReturned = async (req, res) => {
       const amount = order.totalAmount
       await Wallet.updateOne(
         {userId: userId },
-        { $inc: { walletAmount: amount } }
+        { $inc: { walletAmount: amount } },{ upsert: true }
       );
       await Wallet.findOneAndUpdate(
         { userId: userId },
@@ -551,7 +551,7 @@ exports.updateReturned = async (req, res) => {
       console.log("amt",amount)
       await Wallet.updateOne(
         {userId: userId },
-        { $inc: { walletAmount: amount } }
+        { $inc: { walletAmount: amount } },{ upsert: true }
       );
       await Wallet.findOneAndUpdate(
         { userId: userId },
