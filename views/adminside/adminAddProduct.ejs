@@ -344,6 +344,7 @@
       var firstPrice = parseFloat(firstPriceInput);
 
       if (!isNaN(lastPrice) && !isNaN(firstPrice)) {
+        console.log('hiii',lastPrice);
           // Calculate the discounted price
 
           var discountPercentage = ((firstPrice - lastPrice) / firstPrice) * 100;
@@ -351,10 +352,10 @@
           
 
           document.getElementById('discount').value= parseInt(discountPercentage);
-          // Update the discount input field with the calculated discounted price
-         
       }
-
+      else {
+        document.getElementById('discount').value = '';
+        }    
   }
 
 

@@ -959,6 +959,15 @@ exports.deleteoffer = async (req, res) => {
   }
 }
 
+exports.findReferral = async (req, res) => {
+  try{
+    const data = await Referral.find({})
+    res.send(data)
+  }catch(err){
+    res.send(err)
+  }
+}
+
 exports.addOrChangeReferral = async (req, res) =>{
   try {
     const {referralBonus,signupBonus} = req.body

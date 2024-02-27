@@ -170,7 +170,7 @@
         
                         <div class="input-box">
                             <div>
-                                <label for="firstPrice">First Price</label>
+                                <label for="">First Price</label>
                                 <input class="border border-dark" type="number" value="<%=product.firstPrice%>" name="firstPrice" id="firstprice">
                                 <p class="err-msg d-flex justify-content-end" id="errorElement7" style=" color: red;font-size: 14px;"></p>
                             </div>
@@ -378,29 +378,67 @@ function updateUploadedImages() {
 
     </script>
     <script>
-        function calculateDiscount() {
+    //     function calculateDiscount() {
          
-         var lastPriceInput = document.getElementById('lastprice').value;
-         var firstPriceInput = document.getElementById('firstprice').value;
+    //      var lastPriceInput = document.getElementById('lastprice').value;
+    //      var firstPriceInput = document.getElementById('firstprice').value;
    
-         var lastPrice = parseFloat(lastPriceInput);
-         var firstPrice = parseFloat(firstPriceInput);
+    //      var lastPrice = parseFloat(lastPriceInput);
+    //      var firstPrice = parseFloat(firstPriceInput);
    
-         if (!isNaN(lastPrice) && !isNaN(firstPrice)) {
-             // Calculate the discounted price
+    //      if (!isNaN(lastPrice) && !isNaN(firstPrice)) {
+    //          // Calculate the discounted price
    
-             var discountPercentage = ((firstPrice - lastPrice) / firstPrice) * 100;
-             console.log(discountPercentage);
+    //          var discountPercentage = ((firstPrice - lastPrice) / firstPrice) * 100;
+    //          console.log(discountPercentage);
              
    
-             document.getElementById('discount').value= parseInt(discountPercentage);
-             // Update the discount input field with the calculated discounted price
+    //          document.getElementById('discount').value= parseInt(discountPercentage);
+    //          // Update the discount input field with the calculated discounted price
             
-         }
-   
-     }
-   
-   
+    //      }
+    //  }
+
+//     function calculateDiscount() {
+//         console.log("st");
+//     var lastPriceInput = document.getElementById('lastprice')?.value;
+//     var firstPriceInput = document.getElementById('firstprice')?.value;
+//     console.log(lastPriceInput,firstPriceInput);
+
+//     var lastPrice = lastPriceInput;
+//     var firstPrice = firstPriceInput;
+
+//     if (!isNaN(lastPrice) && !isNaN(firstPrice)) {
+//         console.log("in if");
+//         var discountPercentage = ((firstPrice - lastPrice) / firstPrice) * 100;
+//         console.log(discountPercentage);
+//         document.getElementById('discount').value = parseInt(discountPercentage);
+//     } else {
+//         document.getElementById('discount').value = '';
+//     }
+// }
+
+function calculateDiscount() {
+      
+      var lastPriceInput = document.getElementById('lastprice').value;
+      var firstPriceInput = document.getElementById('firstprice').value;
+
+      var lastPrice = parseFloat(lastPriceInput);
+      var firstPrice = parseFloat(firstPriceInput);
+
+      if (!isNaN(lastPrice) && !isNaN(firstPrice)) {
+        console.log('hiii',lastPrice);
+          // Calculate the discounted price
+
+          var discountPercentage = ((firstPrice - lastPrice) / firstPrice) * 100;
+          console.log(discountPercentage);
+            document.getElementById('discount').value= parseInt(discountPercentage);
+        }
+        else {
+        document.getElementById('discount').value = '';
+        }    
+  }
+
     </script>
     <script src="js/adminProduct.js"></script>
 

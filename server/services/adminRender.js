@@ -247,11 +247,30 @@ exports.adminOfferAddProduct=(req,res)=>{
     res.render("adminside/adminOfferAddProduct")
 }
 exports.adminRefManage=(req,res)=>{
-    res.render("adminside/adminRefManage")
+    // res.render("adminside/adminRefManage")
+    axios.get(`http://localhost:${process.env.PORT}/admin/findReferral`)
+    .then(function (response){
+        res.render("adminside/adminRefManage",{ref: response.data });
+    })
+    .catch(err => {
+        res.render('error', { error: err });
+        res.send(err);
+    });
 }
 exports.adminAddRef=(req,res)=>{
-    res.render("adminside/adminAddRef")
+    // res.render("adminside/adminAddRef")
+    axios.get(`http://localhost:${process.env.PORT}/admin/findReferral`)
+    .then(function (response){
+        res.render("adminside/adminAddRef",{ref: response.data });
+    })
+    .catch(err => {
+        res.render('error', { error: err });
+        res.send(err);
+    });
 }
+
+
+
 
 //test ejs
 //----------

@@ -119,7 +119,7 @@
 				<Button class="p-2 bg-black" style="border-radius: 10px;"><a style="color: #fff;" href="/adminUnlistCategory">Unlist Category</a></Button>
                 </div>
             </div> -->
-            <%# if(offer && offer.length>0){ %>
+            <% if(ref && ref.length>0){ %>
                 <div class="container-body  bg-white d-flex justify-content-between m-2 text-dark"
                         style="border-radius: 20px;">
                         <div class="product d-flex ps-3 pt-2">
@@ -131,12 +131,12 @@
                                     
                                 <%# if(offer[i].productName) { %>
                                     <p>Referral Bonus :<span class="text-danger">
-                                            <%#=offer[i].productName %>
+                                            <%=ref[0].referralBonus %>
                                     </span></p>
                                 <%# } %>
                                 <%# if(offer[i].category) { %>
                                     <p>Signup Bonuses:<span class="text-danger">
-                                            <%#=offer[i].category %>
+                                            <%=ref[0].signupBonus %>
                                     </span></p>
                                 <%# } %>
                             </div>
@@ -152,10 +152,9 @@
                             </div>
                         </div>
                     </div>
-                <%# } %>
-                <%# }else{ %>
+                <% }else{ %>
                         <h3>No Offers</h3>
-                <%# } %>
+                <% } %>
 
         
 

@@ -99,5 +99,6 @@ route.post('/admin/addProductOffer',controller.addProductOffer)
 route.get('/admin/findOffers',controller.findOffers)
 
 route.post('/admin/addOrChangeReferral',controller.addOrChangeReferral)
+route.get('/admin/findReferral',controller.findReferral)
 
 module.exports = route;
