@@ -15,9 +15,9 @@ const errorMiddleware = (err, req, res, next) => {
     console.log(status);
 
     if (status === 404) {
-        res.status(status).render('userSide/404Error');
+        res.status(status).render('userside/404Error');
     } else {
-        res.status(status).render('userSide/500Error');
+        res.status(status).render('userside/500Error');
     }
 };
 
