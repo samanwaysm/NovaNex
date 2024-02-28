@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 
 
 // log requests
-// app.use(morgan('tiny'));
+app.use(morgan('tiny'));
 
 // mongodb connection
 connectDB();
