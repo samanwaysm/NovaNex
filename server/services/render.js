@@ -230,6 +230,7 @@ exports.productsList=(req,res,next)=>{
 
 // # Product Page #
 exports.productPage=(req,res,next)=>{
+   console.log('here in the first in product page');
    const {isUserAuthenticated}= req.session
    const id=req.query.id
    const userId= req.session.userId
@@ -238,6 +239,7 @@ exports.productPage=(req,res,next)=>{
       console.log(response.data)         
       res.render("userside/productPage",{product:response.data.product[0],isCart:response.data.isAddedCart,isUserAuthenticated}) 
   }).catch(err=>{  
+      console.log('here catch');
       // res.send(err)   
       next(err)
   })  
