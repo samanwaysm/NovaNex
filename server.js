@@ -57,7 +57,7 @@ app.use(session({
 app.use('/',router );
 app.use('/',adminRouter );
 app.get("*",function(req,res){
-    res.status(404).render("userSide/404Error")
+    res.status(404).render("userside/404Error")
 })
 app.use(errorMiddleware)
 
